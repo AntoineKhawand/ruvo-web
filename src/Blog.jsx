@@ -196,7 +196,7 @@ export default function Blog() {
 
         <motion.div variants={staggerContainer} initial="hidden" animate="visible" className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-32">
           {filteredArticles.map((article, idx) => (
-            <motion.div key={idx} variants={fadeInUp} className="group cursor-pointer" onClick={() => { setSelectedArticle(article); window.scrollTo({top: 0, behavior: 'smooth'}) }}>
+            <motion.div key={article.title} variants={fadeInUp} className="group cursor-pointer" onClick={() => { setSelectedArticle(article); window.scrollTo({top: 0, behavior: 'smooth'}) }}>
               <Card className="bg-[#111] border border-[#222] rounded-[2.5rem] overflow-hidden hover:border-[#dfff00]/40 transition-all duration-500 h-full flex flex-col hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(223,255,0,0.15)]">
                 <div className="h-64 w-full overflow-hidden relative shrink-0">
                   <img src={article.img} alt={article.title} className="w-full h-full object-cover grayscale opacity-70 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" />

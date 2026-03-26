@@ -1,7 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Button, NavbarMenuToggle, NavbarMenu, NavbarMenuItem } from "@heroui/react";
 import { Link, Outlet, useLocation } from "react-router-dom";
+
+const PageLoader = () => (
+  <div className="flex items-center justify-center min-h-[60vh]">
+    <div className="flex flex-col items-center gap-4">
+      <div className="w-12 h-12 border-4 border-[#dfff00] border-t-transparent rounded-full animate-spin"></div>
+      <p className="font-bold uppercase tracking-widest text-sm text-[#dfff00]">Loading...</p>
+    </div>
+  </div>
+);
 
 export default function Layout() {
     const { pathname } = useLocation();
@@ -113,7 +122,9 @@ export default function Layout() {
                         transition={{ duration: 0.3, ease: "easeOut" }}
                         className="flex-grow pt-[80px]"
                     >
-                        <Outlet />
+                        <Suspense fallback={<PageLoader />}>
+                            <Outlet />
+                        </Suspense>
                     </motion.main>
                 </AnimatePresence>
 

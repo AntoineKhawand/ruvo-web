@@ -1,37 +1,38 @@
-import { StrictMode } from 'react'
+import { StrictMode, lazy } from 'react'
 import { createRoot } from 'react-dom/client'
 import { HeroUIProvider } from "@heroui/react"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import './index.css'
-import App from './App.jsx'
-import Features from './Features.jsx'
 import Layout from './Layout.jsx'
-import Reviews from './Reviews.jsx'
-import Support from './Support.jsx'
-import SupportCenter from './SupportCenter.jsx'
-import SupportCategory from './SupportCategory.jsx'
-import SupportArticle from './SupportArticle.jsx'
-import CommunityGuidelines from './CommunityGuidelines.jsx'
-import Careers from './Careers.jsx'
-import Press from './Press.jsx'
-import About from './About.jsx'
-import Privacy from './Privacy.jsx'
-import SystemStatus from './SystemStatus.jsx'
-import DeviceIntegration from './DeviceIntegration.jsx'
-import AiCoaching from './AiCoaching.jsx'
-import Analytics from './Analytics.jsx'
-import Rewards from './Rewards.jsx'
-import Challenges from './Challenges.jsx'
-import Terms from './Terms.jsx'
-import Leaderboard from './Leaderboard.jsx'
-import SignUp from './SignUp.jsx'
-import Login from './Login.jsx'
-import NotFound from './NotFound.jsx'
-import Blog from './Blog.jsx'
-import Changelog from './Changelog.jsx'
-import Heatmap from './Heatmap.jsx'
-import Partners from './Partners.jsx'
-import Shop from './Shop.jsx'
+
+const App = lazy(() => import('./App.jsx'))
+const Features = lazy(() => import('./Features.jsx'))
+const Reviews = lazy(() => import('./Reviews.jsx'))
+const Support = lazy(() => import('./Support.jsx'))
+const SupportCenter = lazy(() => import('./SupportCenter.jsx'))
+const SupportCategory = lazy(() => import('./SupportCategory.jsx'))
+const SupportArticle = lazy(() => import('./SupportArticle.jsx'))
+const CommunityGuidelines = lazy(() => import('./CommunityGuidelines.jsx'))
+const Careers = lazy(() => import('./Careers.jsx'))
+const Press = lazy(() => import('./Press.jsx'))
+const About = lazy(() => import('./About.jsx'))
+const Privacy = lazy(() => import('./Privacy.jsx'))
+const SystemStatus = lazy(() => import('./SystemStatus.jsx'))
+const DeviceIntegration = lazy(() => import('./DeviceIntegration.jsx'))
+const AiCoaching = lazy(() => import('./AiCoaching.jsx'))
+const Analytics = lazy(() => import('./Analytics.jsx'))
+const Rewards = lazy(() => import('./Rewards.jsx'))
+const Challenges = lazy(() => import('./Challenges.jsx'))
+const Terms = lazy(() => import('./Terms.jsx'))
+const Leaderboard = lazy(() => import('./Leaderboard.jsx'))
+const SignUp = lazy(() => import('./SignUp.jsx'))
+const Login = lazy(() => import('./Login.jsx'))
+const NotFound = lazy(() => import('./NotFound.jsx'))
+const Blog = lazy(() => import('./Blog.jsx'))
+const Changelog = lazy(() => import('./Changelog.jsx'))
+const Heatmap = lazy(() => import('./Heatmap.jsx'))
+const Partners = lazy(() => import('./Partners.jsx'))
+const Shop = lazy(() => import('./Shop.jsx'))
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
