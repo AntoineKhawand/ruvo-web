@@ -1,5 +1,5 @@
-import React, { useState, useMemo } from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useMemo, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Card, Button, Chip, Avatar } from "@heroui/react";
 import { Link as RouterLink } from "react-router-dom";
  
@@ -9,6 +9,8 @@ const articles = [
     category: "Product", 
     date: "Oct 29, 2026", 
     readTime: "5 min read",
+    alt: "Close-up of carbon-plated running shoes on a track",
+    title: "Carbon-Plated Shoes: Science or Hype? - Performance Footwear Analysis",
     author: "Antoine El Khawand",
     avatar: "https://i.pravatar.cc/150?img=12",
     excerpt: "Exploring the biomechanics behind 'super shoes' and how they impact your running economy and recovery.",
@@ -25,6 +27,8 @@ const articles = [
     category: "Training", 
     date: "Oct 22, 2026", 
     readTime: "7 min read",
+    alt: "Runner in a park at sunrise, demonstrating Zone 2 training",
+    title: "Zone 2 Training: The Secret to Going Faster - Endurance Strategy",
     author: "Antoine El Khawand",
     avatar: "https://i.pravatar.cc/150?img=12",
     excerpt: "Why slowing down might be the most effective way to break your next personal record.",
@@ -41,6 +45,8 @@ const articles = [
     category: "Science", 
     date: "Oct 15, 2026", 
     readTime: "6 min read",
+    alt: "Athlete undergoing a VO2 Max test with a mask and heart rate monitor",
+    title: "Understanding VO2 Max: Your Ultimate Guide - Aerobic Fitness Explained",
     author: "Antoine El Khawand",
     avatar: "https://i.pravatar.cc/150?img=12",
     excerpt: "Discover how measuring your maximum oxygen uptake can completely transform your endurance training.",
@@ -57,6 +63,8 @@ const articles = [
     category: "Training", 
     date: "Oct 10, 2026", 
     readTime: "4 min read",
+    alt: "Runner crossing the finish line of a 5K race",
+    title: "The Perfect 5K Pacing Strategy - Race Day Tactics",
     author: "Antoine El Khawand",
     avatar: "https://i.pravatar.cc/150?img=12",
     excerpt: "Stop burning out in the first kilometer. Learn the negative split strategy used by elite runners.",
@@ -73,6 +81,8 @@ const articles = [
     category: "Nutrition", 
     date: "Sep 28, 2026", 
     readTime: "8 min read",
+    alt: "Table with various energy gels, drinks, and snacks for ultra-marathon fueling",
+    title: "Nutrition for Ultra-Marathons - Fueling Beyond the Marathon",
     author: "Antoine El Khawand",
     avatar: "https://i.pravatar.cc/150?img=12",
     excerpt: "Fueling for a 50K requires more than just gels. Explore a comprehensive guide to ultra-endurance nutrition.",
@@ -89,8 +99,10 @@ const articles = [
     category: "Product", 
     date: "Sep 15, 2026", 
     readTime: "5 min read",
+    alt: "Smartwatch displaying heart rate variability (HRV) data",
+    title: "How RUVO's AI Adapts to Your HRV - Personalized Training with Data",
     author: "Antoine El Khawand",
-    avatar: "https://i.pravatar.cc/150?img=12",
+    avatar: "public/Gemini_Generated_Image_cajbu9cajbu9cajb.png",
     excerpt: "A look under the hood at how our intelligence engine alters your training based on your daily Heart Rate Variability.",
     img: "https://images.unsplash.com/photo-1682706841289-9d7ddf5eb999?q=80&w=1050&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     content: {
@@ -124,6 +136,53 @@ export default function Blog() {
     return articles.filter(a => a.category === activeCategory);
   }, [activeCategory]);
 
+  useEffect(() => {
+    // Set favicon
+    let link = document.querySelector("link[rel~='icon']");
+    if (!link) {
+      link = document.createElement('link');
+      link.rel = 'icon';
+      document.getElementsByTagName('head')[0].appendChild(link);
+    }
+    link.href = '/favicon.ico'; // Assuming you have a favicon.ico in your public folder
+
+    // Set meta title and description
+    if (selectedArticle) {
+      document.title = selectedArticle.title;
+      let metaDescription = document.querySelector("meta[name='description']");
+      if (!metaDescription) {
+        metaDescription = document.createElement('meta');
+        metaDescription.name = 'description';
+        document.getElementsByTagName('head')[0].appendChild(metaDescription);
+      }
+      metaDescription.content = selectedArticle.excerpt;
+    } else {
+      document.title = "RUVO Blog - Stories & Science for Endurance Athletes";
+      let metaDescription = document.querySelector("meta[name='description']");
+      if (!metaDescription) {
+        metaDescription = document.createElement('meta');
+        metaDescription.name = 'description';
+        document.getElementsByTagName('head')[0].appendChild(metaDescription);
+      }
+      metaDescription.content = "Deep dives into endurance training, sports science, and the technology powering your next personal best with RUVO.";
+    }
+  }, [selectedArticle]);
+
+  const handleShareArticle = () => {
+    if (navigator.share && selectedArticle) {
+      navigator.share({
+        title: selectedArticle.title,
+        text: selectedArticle.excerpt,
+        url: window.location.href,
+      }).then(() => {
+        console.log('Thanks for sharing!');
+      }).catch(console.error);
+    } else {
+      alert('Web Share API is not supported in your browser or no article is selected.');
+      console.log('Share functionality not available or no article selected.');
+    }
+  };
+
   return (
     <div className="relative px-6 pb-24 pt-16 overflow-hidden font-['Poppins'] min-h-[80vh]">
       <style>{`
@@ -133,8 +192,9 @@ export default function Blog() {
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-[#dfff00]/5 blur-[120px] rounded-full pointer-events-none"></div>
 
       <div className="max-w-7xl mx-auto relative z-10">
-        {selectedArticle ? (
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-4xl mx-auto pt-8">
+        <AnimatePresence mode="wait">
+          {selectedArticle ? (
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-4xl mx-auto pt-8">
              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
                <Button 
                  onPress={() => { 
@@ -148,7 +208,7 @@ export default function Blog() {
                   <svg className="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 19l-7-7m0 0l7-7m-7-7h18" /></svg>
                   Back to The Track
                </Button>
-               <Button radius="full" size="sm" variant="bordered" className="text-gray-300 border-white/20 hover:bg-white/10 w-fit">
+               <Button radius="full" size="sm" variant="bordered" className="text-gray-300 border-white/20 hover:bg-white/10 w-fit" onPress={handleShareArticle}>
                  <svg className="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" /></svg>
                  Share Article
                </Button>
@@ -173,7 +233,7 @@ export default function Blog() {
                </div>
              </header>
 
-             <img src={selectedArticle.img} alt={selectedArticle.title} className="w-full h-[300px] md:h-[500px] object-cover rounded-[2rem] mb-16 border border-[#222] shadow-2xl" />
+             <img src={selectedArticle.img} alt={selectedArticle.alt} title={selectedArticle.title} className="w-full h-[300px] md:h-[500px] object-cover rounded-[2rem] mb-16 border border-[#222] shadow-2xl" />
              
              {/* SEO Optimized Content Body */}
              <article className="prose prose-invert max-w-none prose-lg text-gray-300 leading-relaxed font-light">
@@ -199,7 +259,7 @@ export default function Blog() {
                   </ul>
                 </section>
              </article>
-          </motion.div>
+          </motion.div >
         ) : (
         <>
         <motion.div initial="hidden" animate="visible" variants={fadeInUp} className="text-center mb-24 pt-8">
@@ -232,7 +292,7 @@ export default function Blog() {
           {filteredArticles.map((article, idx) => (
             <motion.div key={article.title} variants={fadeInUp} className="group cursor-pointer" onClick={() => { setSelectedArticle(article); window.scrollTo({top: 0, behavior: 'smooth'}) }}>
               <Card className="bg-[#111] border border-[#222] rounded-[2.5rem] overflow-hidden hover:border-[#dfff00]/40 transition-all duration-500 h-full flex flex-col hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(223,255,0,0.15)]">
-                <div className="h-64 w-full overflow-hidden relative shrink-0">
+                <div className="h-64 w-full overflow-hidden relative shrink-0" title={article.title}>
                   <img src={article.img} alt={article.title} className="w-full h-full object-cover grayscale opacity-70 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#111] to-transparent"></div>
                   <Chip size="sm" className="absolute top-6 left-6 bg-[#dfff00] text-black font-bold uppercase tracking-widest border-none z-10">{article.category}</Chip>
@@ -260,7 +320,8 @@ export default function Blog() {
           ))}
         </motion.div>
         </>
-        )}
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );
