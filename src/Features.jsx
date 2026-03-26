@@ -286,7 +286,7 @@ export default function Features() {
                         <div className="mt-6 space-y-4">
                             <div className="flex justify-between items-center bg-[#222] border border-yellow-500/30 shadow-[0_0_15px_rgba(234,179,8,0.15)] p-4 rounded-xl hover:bg-[#2a2a2a] transition-colors cursor-pointer">
                                 <div>
-                                  <span className="block text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-1">Nike Outlet</span>
+                                  <span className="block text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-1">Nike Lebanon</span>
                                   <span className="block text-lg font-black text-white leading-none">-20% Discount</span>
                                 </div>
                                 <span className="bg-yellow-500 text-black text-xs font-black px-3 py-1.5 rounded-full">500 Coins</span>
@@ -300,8 +300,8 @@ export default function Features() {
                             </div>
                             <div className="flex justify-between items-center bg-[#222] border border-white/5 p-4 rounded-xl hover:bg-[#2a2a2a] transition-colors cursor-pointer">
                                 <div>
-                                  <span className="block text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-1">Equinox Gym</span>
-                                  <span className="block text-lg font-black text-white leading-none">Free Month</span>
+                                  <span className="block text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-1">Lebanon Trail</span>
+                                  <span className="block text-lg font-black text-white leading-none">Free Entry</span>
                                 </div>
                                 <span className="bg-yellow-500 text-black text-xs font-black px-3 py-1.5 rounded-full">2500 Coins</span>
                             </div>

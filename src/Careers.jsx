@@ -12,7 +12,7 @@ export default function Careers() {
   const departments = ["Engineering", "Product Design", "AI Research", "Marketing", "Community"];
 
   return (
-    <div className="relative px-6 pb-32 pt-24 overflow-hidden font-['Poppins'] min-h-[80vh] flex flex-col items-center">
+    <div className="relative px-4 md:px-6 pb-20 md:pb-32 pt-16 md:pt-24 overflow-hidden font-['Poppins'] min-h-[80vh] flex flex-col items-center">
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
       `}</style>
@@ -30,7 +30,7 @@ export default function Careers() {
             </svg>
           </div>
           
-          <h1 className="text-4xl md:text-6xl font-black uppercase tracking-tight text-white mb-6">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight text-white mb-6">
             Join The <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#dfff00] to-lime-500">Team.</span>
           </h1>
           
@@ -49,15 +49,15 @@ export default function Careers() {
         </motion.div>
 
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="max-w-4xl mx-auto w-full">
-          <Card className="bg-gradient-to-br from-[#161616] to-[#0a0a0a] border border-[#222] p-10 md:p-16 rounded-[3rem] text-center relative overflow-hidden group hover:border-[#dfff00]/30 transition-all duration-700">
+          <Card className="bg-gradient-to-br from-[#161616] to-[#0a0a0a] border border-[#222] p-6 md:p-16 rounded-[2rem] md:rounded-[3rem] text-center relative overflow-hidden group hover:border-[#dfff00]/30 transition-all duration-700">
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] bg-[#dfff00]/5 blur-[100px] rounded-full pointer-events-none group-hover:bg-[#dfff00]/10 transition-colors duration-700"></div>
             
-            <h3 className="text-3xl md:text-4xl font-black text-white uppercase tracking-tight mb-4 relative z-10">Open <span className="text-gray-500">Application</span></h3>
-            <p className="text-gray-400 text-lg mb-10 max-w-xl mx-auto relative z-10 leading-relaxed">
+            <h3 className="text-2xl md:text-4xl font-black text-white uppercase tracking-tight mb-4 relative z-10">Open <span className="text-gray-500">Application</span></h3>
+            <p className="text-gray-400 text-base md:text-lg mb-10 max-w-xl mx-auto relative z-10 leading-relaxed">
               While we don't have specific roles posted right now, we are always eager to meet exceptional talent. Send us your resume and tell us how you can make an impact.
             </p>
             
-            <Button as="a" href="mailto:careers@ruvo.app" radius="full" size="lg" className="bg-[#dfff00] text-black font-bold px-12 py-7 text-lg relative z-10 hover:scale-105 transition-transform shadow-[0_0_30px_rgba(223,255,0,0.15)] group-hover:shadow-[0_0_40px_rgba(223,255,0,0.25)]">
+            <Button as="a" href="mailto:careers@ruvo.run" radius="full" size="lg" className="bg-[#dfff00] text-black font-bold px-8 md:px-12 py-6 md:py-7 text-base md:text-lg relative z-10 hover:scale-105 transition-transform shadow-[0_0_30px_rgba(223,255,0,0.15)] group-hover:shadow-[0_0_40px_rgba(223,255,0,0.25)] w-full sm:w-auto">
               Submit Your Portfolio
             </Button>
           </Card>

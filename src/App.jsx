@@ -815,7 +815,7 @@ export default function App() {
               <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tight mt-2 mb-4">Stay Motivated With <span className="text-gray-500">Challenges.</span></h2>
               <p className="text-gray-400 text-lg">Take on monthly goals, compete with friends, and earn badges. From 5Ks to 100Ks and everything in between.</p>
             </div>
-            <Button radius="full" className="mt-6 lg:mt-0 bg-white/10 text-white font-bold backdrop-blur-md border border-white/20 px-8 py-6 hover:bg-white/20 transition-colors">
+            <Button as={RouterLink} to="/challenges" radius="full" className="mt-6 lg:mt-0 bg-white/10 text-white font-bold backdrop-blur-md border border-white/20 px-8 py-6 hover:bg-white/20 transition-colors">
               See All Challenges
             </Button>
           </motion.div>

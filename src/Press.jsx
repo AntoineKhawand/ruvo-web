@@ -10,7 +10,7 @@ export default function Press() {
   };
 
   return (
-    <div className="relative px-6 pb-32 pt-24 overflow-hidden font-['Poppins'] min-h-[80vh] flex flex-col items-center">
+    <div className="relative px-4 md:px-6 pb-20 md:pb-32 pt-16 md:pt-24 overflow-hidden font-['Poppins'] min-h-[80vh] flex flex-col items-center">
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
       `}</style>
@@ -25,7 +25,7 @@ export default function Press() {
             <span className="w-2 h-2 rounded-full bg-[#dfff00] animate-pulse"></span>
             Press & Media
           </div>
-          <h1 className="text-5xl md:text-7xl font-black uppercase tracking-tighter text-white mb-6 leading-none">
+          <h1 className="text-4xl md:text-5xl lg:text-7xl font-black uppercase tracking-tighter text-white mb-6 leading-none">
             RUVO <span className="text-gray-500">Newsroom.</span>
           </h1>
           
@@ -36,7 +36,7 @@ export default function Press() {
 
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
             {/* Contact Card */}
-            <Card className="bg-[#111] border border-[#222] p-10 md:p-14 rounded-[3rem] hover:border-[#dfff00]/40 transition-colors duration-500 flex flex-col justify-center items-start group relative overflow-hidden">
+            <Card className="bg-[#111] border border-[#222] p-8 md:p-14 rounded-[2rem] md:rounded-[3rem] hover:border-[#dfff00]/40 transition-colors duration-500 flex flex-col justify-center items-center md:items-start text-center md:text-left group relative overflow-hidden">
               <div className="absolute top-0 right-0 w-48 h-48 bg-[#dfff00]/5 blur-[50px] rounded-full pointer-events-none group-hover:bg-[#dfff00]/10 transition-colors duration-500"></div>
               
               <div className="w-16 h-16 bg-[#222] rounded-2xl flex items-center justify-center mb-8 border border-white/5 group-hover:bg-[#dfff00] transition-colors duration-500 shadow-lg">
@@ -45,15 +45,15 @@ export default function Press() {
               </svg>
               </div>
               
-              <h3 className="text-3xl font-bold text-white mb-4 tracking-tight">Media Inquiries</h3>
-              <p className="text-gray-400 mb-10 leading-relaxed text-lg">Are you a journalist or creator looking to cover RUVO? We'd love to chat with you about our mission.</p>
-              <Button as="a" href="mailto:press@ruvo.app" radius="full" size="lg" variant="bordered" className="text-white border-white/20 hover:bg-white/10 font-bold w-full text-base py-6">
-                press@ruvo.app
+              <h3 className="text-2xl md:text-3xl font-bold text-white mb-4 tracking-tight">Media Inquiries</h3>
+              <p className="text-gray-400 mb-8 md:mb-10 leading-relaxed text-base md:text-lg">Are you a journalist or creator looking to cover RUVO? We'd love to chat with you about our mission.</p>
+              <Button as="a" href="mailto:press@ruvo.run" radius="full" size="lg" variant="bordered" className="text-white border-white/20 hover:bg-white/10 font-bold w-full text-base py-6">
+                press@ruvo.run
               </Button>
             </Card>
 
             {/* Brand Kit Card */}
-            <Card className="bg-gradient-to-br from-[#161616] to-[#0a0a0a] border border-[#222] p-10 md:p-14 rounded-[3rem] hover:border-[#dfff00]/40 transition-colors relative overflow-hidden flex flex-col justify-center items-start group duration-500">
+            <Card className="bg-gradient-to-br from-[#161616] to-[#0a0a0a] border border-[#222] p-8 md:p-14 rounded-[2rem] md:rounded-[3rem] hover:border-[#dfff00]/40 transition-colors relative overflow-hidden flex flex-col justify-center items-center md:items-start text-center md:text-left group duration-500">
               <div className="absolute -right-10 -bottom-10 w-64 h-64 bg-[#dfff00]/10 blur-[70px] rounded-full pointer-events-none group-hover:bg-[#dfff00]/20 transition-colors duration-500"></div>
               
               <div className="w-16 h-16 bg-[#dfff00]/10 rounded-2xl flex items-center justify-center mb-8 border border-[#dfff00]/20 relative z-10">
@@ -62,8 +62,8 @@ export default function Press() {
               </svg>
               </div>
               
-              <h3 className="text-3xl font-bold text-white mb-4 relative z-10 tracking-tight">Brand Assets</h3>
-              <p className="text-gray-400 mb-10 relative z-10 leading-relaxed text-lg">Download official RUVO logos, app screenshots, lifestyle photography, and guidelines.</p>
+              <h3 className="text-2xl md:text-3xl font-bold text-white mb-4 relative z-10 tracking-tight">Brand Assets</h3>
+              <p className="text-gray-400 mb-8 md:mb-10 relative z-10 leading-relaxed text-base md:text-lg">Download official RUVO logos, app screenshots, lifestyle photography, and guidelines.</p>
               <Button radius="full" size="lg" className="bg-[#dfff00] text-black font-bold w-full relative z-10 shadow-[0_0_20px_rgba(223,255,0,0.15)] group-hover:shadow-[0_0_30px_rgba(223,255,0,0.25)] transition-all text-base py-6">
                 Download Media Kit
               </Button>

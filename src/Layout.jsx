@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Button, NavbarMenuToggle, NavbarMenu, NavbarMenuItem } from "@heroui/react";
 import { Link, Outlet, useLocation } from "react-router-dom";
 
@@ -6,12 +7,62 @@ export default function Layout() {
     const { pathname } = useLocation();
     const [isLoaded, setIsLoaded] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [showScrollTop, setShowScrollTop] = useState(false);
 
     useEffect(() => {
         setIsLoaded(true);
         window.scrollTo(0, 0); // Scroll to top on route change
         setIsMenuOpen(false);
+
+        // 1. Google Analytics Pageview Tracking
+        if (typeof window !== "undefined" && window.gtag) {
+            window.gtag('config', 'G-F3H97VCE0F', { page_path: pathname });
+        }
+
+        // 2. Dynamic SEO Titles & Meta Descriptions
+        const seoData = {
+            '/': { title: 'RUVO | AI Running Coach & Gamified Fitness', desc: 'Redefine your limits with RUVO. AI coaching, precise heart rate tracking, and a gamified reward system. Earn XP and coins to unlock physical discounts.' },
+            '/features': { title: 'Pro Features | RUVO AI Coach', desc: 'Discover dynamic AI coaching, precision routing, and elite analytics to power your marathon training.' },
+            '/analytics': { title: 'Elite Analytics | RUVO', desc: 'Track your VO2 Max, running power, and ground contact time with RUVO\'s advanced biometric analytics.' },
+            '/rewards': { title: 'Gamified Rewards | RUVO', desc: 'Convert your runs into XP and Coins to unlock discounts at local Lebanese health brands and fitness stores.' },
+            '/challenges': { title: 'Global Running Challenges | RUVO', desc: 'Push your limits. Join thousands of runners in global and local community-driven running challenges.' },
+            '/device-integration': { title: 'Universal Device Sync | RUVO', desc: 'Sync your Apple Watch, Garmin, Coros, and Oura Ring. Zero-latency biometric data aggregation.' },
+            '/shop': { title: 'Official Merch Shop | RUVO', desc: 'Premium running apparel designed for performance. Shop the official RUVO x Healing Makers collection.' },
+            '/blog': { title: 'The Track - Running Blog | RUVO', desc: 'Deep dives into endurance training, sports science, and the technology powering your next personal best.' },
+            '/support-center': { title: 'Knowledge Base | RUVO Support', desc: 'Find guides, tutorials, and troubleshooting steps to get the most out of your RUVO experience.' }
+        };
+
+        const currentSEO = seoData[pathname] || { title: 'RUVO | AI Running App', desc: 'The ultimate AI running coach and gamified fitness app.' };
+        
+        document.title = currentSEO.title;
+        let metaDesc = document.querySelector('meta[name="description"]');
+        if (!metaDesc) {
+            metaDesc = document.createElement('meta');
+            metaDesc.name = "description";
+            document.head.appendChild(metaDesc);
+        }
+        metaDesc.content = currentSEO.desc;
     }, [pathname]);
+
+    useEffect(() => {
+        const toggleVisibility = () => {
+            if (window.scrollY > 300) {
+                setShowScrollTop(true);
+            } else {
+                setShowScrollTop(false);
+            }
+        };
+
+        window.addEventListener("scroll", toggleVisibility);
+        return () => window.removeEventListener("scroll", toggleVisibility);
+    }, []);
+
+    const scrollToTop = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    };
 
     return (
         <>
@@ -26,13 +77,10 @@ export default function Layout() {
                     <NavbarMenuToggle aria-label={isMenuOpen ? "Close menu" : "Open menu"} />
                 </NavbarContent>
                 <NavbarBrand className="justify-center lg:justify-start">
-                        <Link to="/" className="flex items-center">
-                            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-tr from-[#dfff00] to-lime-500 mr-3 shadow-[0_0_15px_rgba(223,255,0,0.4)]">
-                                <span className="text-xl font-black text-black">R</span>
-                            </div>
-                            <p className="font-black text-2xl tracking-tighter text-white hover:opacity-80 transition-opacity">RU<span className="text-[#dfff00]">VO</span></p>
-                        </Link>
-                    </NavbarBrand>
+                    <Link to="/" className="flex items-center gap-3">
+                        <img src="/Ruvo Logo Original.png" alt="Ruvo Logo" className="h-8 sm:h-9" />
+                    </Link>
+                </NavbarBrand>
                     <NavbarContent className="hidden lg:flex gap-8" justify="center">
                         <NavbarItem><Link to="/reviews" className={`text-sm font-semibold transition-colors ${pathname === '/reviews' ? 'text-[#dfff00]' : 'text-gray-300 hover:text-[#dfff00]'}`}>Reviews</Link></NavbarItem>
                         <NavbarItem><Link to="/features" className={`text-sm font-semibold transition-colors ${pathname === '/features' ? 'text-[#dfff00]' : 'text-gray-300 hover:text-[#dfff00]'}`}>Features</Link></NavbarItem>
@@ -56,9 +104,29 @@ export default function Layout() {
                 </Navbar>
 
                 {/* --- PAGE CONTENT INJECTED HERE --- */}
-                <main className="flex-grow pt-[80px]">
-                    <Outlet />
-                </main>
+                <AnimatePresence mode="wait">
+                    <motion.main
+                        key={pathname}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -20 }}
+                        transition={{ duration: 0.3, ease: "easeOut" }}
+                        className="flex-grow pt-[80px]"
+                    >
+                        <Outlet />
+                    </motion.main>
+                </AnimatePresence>
+
+                {/* --- SCROLL TO TOP BUTTON --- */}
+                <button
+                    onClick={scrollToTop}
+                    className={`fixed bottom-6 right-6 md:bottom-10 md:right-10 z-50 bg-[#dfff00] text-black p-3 md:p-4 rounded-full shadow-[0_0_20px_rgba(223,255,0,0.4)] hover:shadow-[0_0_30px_rgba(223,255,0,0.6)] transition-all duration-500 ease-in-out hover:scale-110 flex items-center justify-center ${showScrollTop ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'}`}
+                    aria-label="Scroll to top"
+                >
+                    <svg className="w-5 h-5 md:w-6 md:h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+                    </svg>
+                </button>
 
                 {/* --- FOOTER --- */}
                 <footer className="relative bg-[#000] border-t border-white/10 pt-32 pb-12 overflow-hidden mt-auto">
@@ -71,11 +139,8 @@ export default function Layout() {
 
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-12 lg:gap-8 mb-20">
                             <div className="lg:col-span-2">
-                                <div className="flex items-center mb-6">
-                                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#dfff00] mr-3">
-                                        <span className="text-xl font-black text-black">R</span>
-                                    </div>
-                                    <p className="font-black text-2xl tracking-tighter text-white">RU<span className="text-[#dfff00]">VO</span></p>
+                                <div className="flex items-center gap-3 mb-6">
+                                    <img src="/Ruvo Logo Original.png" alt="Ruvo Logo" className="h-16" />
                                 </div>
                                 <p className="text-sm text-gray-400 mb-8 leading-relaxed pr-4">Redefine your limits with precision tracking and elite analytics built for athletes who never settle.</p>
                                 <div className="flex flex-col sm:flex-row gap-3 mt-4">
@@ -96,6 +161,8 @@ export default function Layout() {
                                     <li><Link to="/device-integration" className="hover:text-[#dfff00] transition-colors">Device Integration</Link></li>
                                     <li><Link to="/analytics" className="hover:text-[#dfff00] transition-colors">Elite Analytics</Link></li>
                                     <li><Link to="/rewards" className="hover:text-[#dfff00] transition-colors">Gamified Rewards</Link></li>
+                                    <li><Link to="/heatmap" className="hover:text-[#dfff00] transition-colors">Global Heatmap</Link></li>
+                                    <li><Link to="/shop" className="hover:text-[#dfff00] transition-colors">Merch Shop</Link></li>
                                 </ul>
                             </div>
                             <div className="col-span-1">
@@ -104,6 +171,7 @@ export default function Layout() {
                                     <li><Link to="/support" className="hover:text-[#dfff00] transition-colors">Contact Support</Link></li>
                                     <li><Link to="/support-center" className="hover:text-[#dfff00] transition-colors">Support Center</Link></li>
                                     <li><Link to="/community-guidelines" className="hover:text-[#dfff00] transition-colors">Community Guidelines</Link></li>
+                                    <li><Link to="/blog" className="hover:text-[#dfff00] transition-colors">The Track (Blog)</Link></li>
                                 </ul>
                             </div>
                             <div className="col-span-1">
@@ -112,6 +180,8 @@ export default function Layout() {
                                     <li><Link to="/about" className="hover:text-[#dfff00] transition-colors">About Us</Link></li>
                                     <li><Link to="/careers" className="hover:text-[#dfff00] transition-colors">Careers</Link></li>
                                     <li><Link to="/press" className="hover:text-[#dfff00] transition-colors">Press</Link></li>
+                                    <li><Link to="/changelog" className="hover:text-[#dfff00] transition-colors">Changelog</Link></li>
+                                    <li><Link to="/partners" className="hover:text-[#dfff00] transition-colors">Partnerships</Link></li>
                                 </ul>
                             </div>
                             <div className="col-span-1">

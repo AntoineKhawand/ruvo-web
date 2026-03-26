@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Card, Button, Chip, Avatar, AvatarGroup, Progress } from "@heroui/react";
+import { Card, Button, Chip, Avatar, AvatarGroup, Progress, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from "@heroui/react";
 import { Link as RouterLink } from "react-router-dom";
 
 export default function Challenges() {
+  const [selectedRegion, setSelectedRegion] = useState("All Regions");
+
   const fadeInUp = {
     hidden: { opacity: 0, y: 30 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } }
@@ -18,10 +20,11 @@ export default function Challenges() {
     {
       title: "Lebanon Coast-to-Coast",
       desc: "Run a total of 150km anywhere along the Lebanese coastline this month.",
+      region: "Anywhere",
       progress: 68,
       joined: "12.4K",
       timeLeft: "12d left",
-      image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1000&q=80",
+      image: "https://images.unsplash.com/photo-1550492370-84c39aa3aff5?q=80&w=2218&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       color: "from-blue-500/40 to-cyan-500/40",
       border: "hover:border-cyan-500/40",
       tagColor: "bg-cyan-500/10 text-cyan-400"
@@ -29,26 +32,70 @@ export default function Challenges() {
     {
       title: "Beirut Marathon Prep",
       desc: "Complete 4 long runs (15km+) before race day to earn the exclusive digital badge.",
+      region: "Beirut",
       progress: 50,
       joined: "8.2K",
       timeLeft: "5d left",
-      image: "https://images.unsplash.com/photo-1530549387722-41480f83ae89?auto=format&fit=crop&w=1000&q=80",
+      image: "https://images.unsplash.com/photo-1667917796503-b1dbf8abced0?q=80&w=1548&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       color: "from-red-500/40 to-orange-500/40",
       border: "hover:border-orange-500/40",
       tagColor: "bg-orange-500/10 text-orange-400"
     },
     {
-      title: "Mountain Goat: Chouf",
+      title: "Chouf Mountain Trail",
       desc: "Accumulate 2,000m of elevation gain in the Chouf mountains.",
+      region: "Mount Lebanon",
       progress: 30,
       joined: "4.1K",
       timeLeft: "20d left",
-      image: "https://images.unsplash.com/photo-1452626022479-bfae86c47141?auto=format&fit=crop&w=1000&q=80",
+      image: "https://images.unsplash.com/photo-1643892492756-ffc3d71f8cd1?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       color: "from-green-500/40 to-emerald-500/40",
       border: "hover:border-emerald-500/40",
       tagColor: "bg-emerald-500/10 text-emerald-400"
+    },
+    {
+      title: "RUVO Monthly 50K",
+      desc: "Join the monthly membership challenge. Run 50K cumulative to earn 500 bonus RUVO coins.",
+      region: "Anywhere",
+      progress: 15,
+      joined: "22.1K",
+      timeLeft: "8d left",
+      image: "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=1000&q=80",
+      color: "from-yellow-500/40 to-amber-500/40",
+      border: "hover:border-yellow-500/40",
+      tagColor: "bg-yellow-500/10 text-yellow-400"
+    },
+    {
+      title: "Batroun Sunset Dash",
+      desc: "A fast-paced 5K route across the Batroun coast. Average under 4:30/km to win.",
+      region: "North",
+      progress: 42,
+      joined: "18.5K",
+      timeLeft: "25d left",
+      image: "https://images.unsplash.com/flagged/photo-1556746834-1cb5b8fabd54?q=80&w=1744&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      color: "from-indigo-500/40 to-purple-500/40",
+      border: "hover:border-indigo-500/40",
+      tagColor: "bg-indigo-500/10 text-indigo-400"
+    },
+    {
+      title: "Baalbek Endurance",
+      desc: "Log a 20km continuous run in the Bekaa valley to unlock the historic badge.",
+      region: "Bekaa",
+      progress: 88,
+      joined: "45.2K",
+      timeLeft: "3d left",
+      image: "https://images.unsplash.com/photo-1771166388723-7b418d91e734?q=80&w=1742&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      color: "from-pink-500/40 to-rose-500/40",
+      border: "hover:border-pink-500/40",
+      tagColor: "bg-pink-500/10 text-pink-400"
     }
   ];
+
+  const regions = ["All Regions", "Anywhere", "Beirut", "Mount Lebanon", "North", "Bekaa"];
+  
+  const filteredEvents = selectedRegion === "All Regions" 
+    ? activeEvents 
+    : activeEvents.filter(e => e.region === selectedRegion);
 
   return (
     <div className="relative px-6 pb-24 pt-16 overflow-hidden font-['Poppins'] min-h-[80vh]">
@@ -81,21 +128,41 @@ export default function Challenges() {
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-black uppercase tracking-tight text-white mb-2">Active <span className="text-gray-500">Events.</span></h2>
               <p className="text-gray-400 text-lg">Join these challenges before they expire.</p>
             </div>
-            <Button radius="full" variant="flat" className="bg-white/5 text-white font-bold hover:bg-white/10 border border-white/10">
-              Filter by Region
-            </Button>
+            
+            <Dropdown classNames={{ content: "bg-[#111] border border-[#222] min-w-[200px]" }}>
+              <DropdownTrigger>
+                <Button radius="full" variant="flat" className="bg-white/5 text-white font-bold hover:bg-white/10 border border-white/10">
+                  {selectedRegion === "All Regions" ? "Filter by Region" : selectedRegion}
+                  <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
+                </Button>
+              </DropdownTrigger>
+              <DropdownMenu 
+                aria-label="Filter by Region" 
+                selectionMode="single"
+                disallowEmptySelection
+                selectedKeys={new Set([selectedRegion])}
+                onSelectionChange={(keys) => setSelectedRegion(Array.from(keys)[0])}
+                itemClasses={{ base: "text-gray-300 data-[hover=true]:bg-white/10 data-[hover=true]:text-white" }}
+              >
+                {regions.map(r => (
+                  <DropdownItem key={r}>{r}</DropdownItem>
+                ))}
+              </DropdownMenu>
+            </Dropdown>
           </div>
 
-          <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {activeEvents.map((event, idx) => (
-              <motion.div key={idx} variants={fadeInUp} className="h-full">
-                <Card className={`bg-[#111] border border-[#222] ${event.border} transition-colors duration-500 group flex flex-col rounded-[2.5rem] overflow-hidden h-full cursor-pointer shadow-xl hover:shadow-[0_15px_40px_-15px_rgba(0,0,0,0.8)]`}>
+          <motion.div key={selectedRegion} variants={staggerContainer} initial="hidden" animate="visible" className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            {filteredEvents.length === 0 ? (
+               <div className="col-span-full text-center py-20 text-gray-500 font-medium">No active challenges found in {selectedRegion}.</div>
+            ) : filteredEvents.map((event, idx) => (
+              <motion.div key={event.title} variants={fadeInUp} className="h-full">
+                <Card className={`bg-[#111] border border-[#222] ${event.border} transition-colors duration-500 group flex flex-col rounded-[2.5rem] overflow-hidden h-full cursor-pointer shadow-lg hover:shadow-[0_10px_30px_-10px_rgba(0,0,0,0.4)]`}>
                   
                   {/* Image Header */}
                   <div className="relative h-48 w-full overflow-hidden">
                     <img src={event.image} alt={event.title} className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-[2s] ease-out" />
                     <div className={`absolute inset-0 bg-gradient-to-tr ${event.color}`}></div>
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#111] via-[#111]/20 to-transparent"></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#111] via-[#111]/5 to-transparent"></div>
                     <div className="absolute top-4 left-4 right-4 flex justify-between items-center z-10">
                       <Chip size="sm" className={`${event.tagColor} border-none font-bold uppercase tracking-widest text-[10px]`}>{event.timeLeft}</Chip>
                       <span className="bg-black/50 backdrop-blur-md text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full border border-white/10">
@@ -135,7 +202,7 @@ export default function Challenges() {
               <p className="text-gray-400 text-lg leading-relaxed mb-6">
                 See how you stack up against your friends and the rest of the RUVO community. Compete for the top spot every month.
               </p>
-              <Button radius="full" className="bg-white/10 text-white font-bold border border-white/20 hover:bg-white/20 transition-colors px-8">
+            <Button as={RouterLink} to="/leaderboard" radius="full" className="bg-white/10 text-white font-bold border border-white/20 hover:bg-white/20 transition-colors px-8">
                 View Full Leaderboard
               </Button>
             </div>
@@ -143,10 +210,10 @@ export default function Challenges() {
             <div className="md:w-1/2 w-full relative z-10">
               <div className="bg-[#111] border border-[#222] rounded-3xl p-4 flex flex-col gap-2 shadow-inner">
                 {[
-                  { rank: 1, name: "Tarek Z.", points: "14,250 XP", avatar: "https://i.pravatar.cc/150?u=1", color: "text-yellow-500" },
-                  { rank: 2, name: "Sarah J.", points: "13,800 XP", avatar: "https://i.pravatar.cc/150?u=2", color: "text-gray-300" },
-                  { rank: 3, name: "Elie K.", points: "12,100 XP", avatar: "https://i.pravatar.cc/150?u=3", color: "text-amber-600" },
-                  { rank: 48, name: "You", points: "4,500 XP", avatar: "https://i.pravatar.cc/150?u=4", color: "text-[#dfff00]", isYou: true }
+                  { rank: 1, name: "Tarek Z.", points: "14,250 XP", avatar: "https://i.pravatar.cc/150?img=33", color: "text-yellow-500" },
+                  { rank: 2, name: "Sarah J.", points: "13,800 XP", avatar: "https://i.pravatar.cc/150?img=5", color: "text-gray-300" },
+                  { rank: 3, name: "Elie K.", points: "12,100 XP", avatar: "https://i.pravatar.cc/150?img=14", color: "text-amber-600" },
+                  { rank: 48, name: "You", points: "4,500 XP", avatar: "https://i.pravatar.cc/150?img=8", color: "text-[#dfff00]", isYou: true }
                 ].map((user, i) => (
                   <div key={i} className={`flex items-center justify-between p-3 rounded-2xl ${user.isYou ? 'bg-[#dfff00]/10 border border-[#dfff00]/30' : 'hover:bg-[#1a1a1a] border border-transparent'} transition-colors`}>
                     <div className="flex items-center gap-4">
@@ -168,7 +235,7 @@ export default function Challenges() {
             Are You <span className="text-gray-500">Ready?</span>
           </h2>
           <div className="flex justify-center items-center">
-            <Button radius="full" size="lg" className="bg-[#dfff00] text-black font-bold px-12 py-8 text-lg hover:scale-105 transition-transform shadow-[0_0_20px_rgba(223,255,0,0.15)]">
+            <Button as={RouterLink} to="/signup" radius="full" size="lg" className="bg-[#dfff00] text-black font-bold px-12 py-8 text-lg hover:scale-105 transition-transform shadow-[0_0_20px_rgba(223,255,0,0.15)]">
               Join Your First Challenge
             </Button>
           </div>

@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Card, Button, Input, Textarea } from "@heroui/react";
+import emailjs from '@emailjs/browser';
 
 function FaqItem({ faq }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -65,6 +66,9 @@ export default function Support() {
   const [formStatus, setFormStatus] = useState("idle");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
   const formRef = useRef(null);
 
   const filteredFaqs = faqs.filter(faq => 
@@ -80,14 +84,34 @@ export default function Support() {
   const handleSubmit = (e) => {
     e.preventDefault();
     setFormStatus("submitting");
-    // Simulate API Call
-    setTimeout(() => {
-      setFormStatus("success");
-    }, 1500);
+
+    const templateParams = {
+      from_name: name,
+      reply_to: email,
+      category: selectedCategory || 'General Inquiry',
+      message: message,
+    };
+
+    emailjs.send(
+      import.meta.env.VITE_EMAILJS_SERVICE_ID,
+      import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+      templateParams,
+      import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+    ).then(() => {
+        setFormStatus("success");
+        setName("");
+        setEmail("");
+        setMessage("");
+        setSelectedCategory("");
+    }).catch((error) => {
+        console.error('EmailJS Error:', error);
+        setFormStatus("idle");
+        alert("Failed to send message. Please try again.");
+    });
   };
 
   return (
-    <div className="relative px-6 pb-24 pt-12 overflow-hidden font-['Poppins']">
+    <div className="relative px-4 md:px-6 pb-16 md:pb-24 pt-8 md:pt-12 overflow-hidden font-['Poppins']">
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
       `}</style>
@@ -99,7 +123,7 @@ export default function Support() {
         {/* Header Section */}
         <motion.div initial="hidden" animate="visible" variants={fadeInUp} className="text-center mb-20 max-w-3xl mx-auto">
           <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[#dfff00]">Support Center</span>
-          <h1 className="text-5xl md:text-7xl font-black uppercase tracking-tighter mt-2 mb-6">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-black uppercase tracking-tighter mt-2 mb-6">
             How can we <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#dfff00] to-lime-500">help?</span>
           </h1>
           <div className="relative max-w-xl mx-auto mt-8">
@@ -117,10 +141,10 @@ export default function Support() {
         </motion.div>
 
         {/* Topics Grid */}
-        <motion.div variants={staggerContainer} initial="hidden" animate="visible" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-24">
+        <motion.div variants={staggerContainer} initial="hidden" animate="visible" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-16 md:mb-24">
           {topics.map((topic, idx) => (
             <motion.div key={idx} variants={fadeInUp} className="h-full" onClick={() => handleTopicClick(topic.categoryId)}>
-              <Card className="bg-gradient-to-br from-[#111] to-[#0a0a0a] border border-[#222] p-8 h-full rounded-3xl hover:border-[#dfff00]/40 transition-all duration-500 group cursor-pointer hover:-translate-y-1 hover:shadow-[0_10px_40px_-10px_rgba(223,255,0,0.1)]">
+              <Card className="bg-gradient-to-br from-[#111] to-[#0a0a0a] border border-[#222] p-6 md:p-8 h-full rounded-3xl hover:border-[#dfff00]/40 transition-all duration-500 group cursor-pointer hover:-translate-y-1 hover:shadow-[0_10px_40px_-10px_rgba(223,255,0,0.1)]">
                 <div className="w-12 h-12 bg-[#222] rounded-2xl flex items-center justify-center mb-6 group-hover:bg-[#dfff00] transition-colors duration-500 shadow-lg">
                     <svg className="w-6 h-6 text-[#dfff00] group-hover:text-black transition-colors duration-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={topic.icon} />
@@ -138,12 +162,12 @@ export default function Support() {
           
           {/* Contact Form */}
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
-            <div className="mb-8">
+            <div className="mb-6 md:mb-8 text-center md:text-left">
               <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tight mb-4 text-white">Submit a <span className="text-[#dfff00]">Request.</span></h2>
               <p className="text-gray-400 leading-relaxed">Fill out the form below and our dedicated athlete support team will get back to you within 2-4 hours.</p>
             </div>
             
-            <Card className="bg-[#111] border border-[#222] p-8 md:p-10 rounded-3xl shadow-2xl">
+            <Card className="bg-[#111] border border-[#222] p-6 md:p-10 rounded-3xl shadow-2xl">
               {formStatus === "success" ? (
                 <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="text-center py-10">
                   <div className="w-20 h-20 bg-green-500/20 text-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
@@ -158,8 +182,8 @@ export default function Support() {
               ) : (
                 <form onSubmit={handleSubmit} className="flex flex-col gap-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <Input isRequired label="Your Name" placeholder="e.g. John Doe" classNames={{ inputWrapper: "bg-[#222] group-data-[focus=true]:bg-[#333] border-none", label: "text-gray-400 font-bold" }} />
-                    <Input isRequired type="email" label="Email Address" placeholder="runner@example.com" classNames={{ inputWrapper: "bg-[#222] group-data-[focus=true]:bg-[#333] border-none", label: "text-gray-400 font-bold" }} />
+                    <Input isRequired label="Your Name" value={name} onValueChange={setName} placeholder="e.g. John Doe" classNames={{ inputWrapper: "bg-[#222] group-data-[focus=true]:bg-[#333] border-none", label: "text-gray-400 font-bold" }} />
+                    <Input isRequired type="email" label="Email Address" value={email} onValueChange={setEmail} placeholder="runner@example.com" classNames={{ inputWrapper: "bg-[#222] group-data-[focus=true]:bg-[#333] border-none", label: "text-gray-400 font-bold" }} />
                   </div>
                   
                   <div className="flex flex-col gap-1.5">
@@ -182,7 +206,7 @@ export default function Support() {
                     </div>
                   </div>
 
-                  <Textarea isRequired label="Message" placeholder="Please provide as much detail as possible..." minRows={5} classNames={{ inputWrapper: "bg-[#222] group-data-[focus=true]:bg-[#333] border-none", label: "text-gray-400 font-bold" }} />
+                  <Textarea isRequired label="Message" value={message} onValueChange={setMessage} placeholder="Please provide as much detail as possible..." minRows={5} classNames={{ inputWrapper: "bg-[#222] group-data-[focus=true]:bg-[#333] border-none", label: "text-gray-400 font-bold" }} />
                   
                   <Button type="submit" isLoading={formStatus === "submitting"} radius="full" size="lg" className="bg-[#dfff00] text-black font-bold mt-2 w-full text-base shadow-[0_0_20px_rgba(223,255,0,0.2)] hover:scale-[1.02] transition-transform">
                     {formStatus === "submitting" ? "Sending..." : "Send Message"}
@@ -194,7 +218,7 @@ export default function Support() {
 
           {/* Quick FAQ */}
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
-            <div className="mb-8">
+            <div className="mb-6 md:mb-8 text-center md:text-left">
               <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tight mb-4 text-white">Popular <span className="text-gray-500">Answers.</span></h2>
               <p className="text-gray-400 leading-relaxed">Quick solutions to our most frequently asked questions.</p>
             </div>

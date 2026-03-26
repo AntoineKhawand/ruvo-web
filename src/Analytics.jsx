@@ -41,8 +41,8 @@ export default function Analytics() {
         {/* Large Image Hero Banner */}
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="w-full h-[500px] md:h-[600px] rounded-[3rem] overflow-hidden relative mb-32 group shadow-2xl">
           <img 
-            src="https://images.unsplash.com/photo-1761064039797-837fc97e5c86?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
-            alt="Athlete analyzing smartwatch data" 
+            src="https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?q=80&w=1740&auto=format&fit=crop" 
+            alt="Athlete running outdoors on road" 
             className="w-full h-full object-cover grayscale opacity-50 group-hover:opacity-70 group-hover:scale-105 transition-all duration-[2s] ease-out"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/40 to-transparent"></div>

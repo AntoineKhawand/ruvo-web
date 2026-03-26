@@ -75,16 +75,16 @@ export default function DeviceIntegration() {
   ];
 
   const dataMetrics = [
-    { label: "Heart Rate Variability", value: "HRV", status: "Supported" },
-    { label: "VO2 Max Estimation", value: "VO2", status: "Supported" },
-    { label: "Running Power", value: "Watts", status: "Supported" },
-    { label: "Ground Contact Time", value: "GCT", status: "Supported" },
-    { label: "Vertical Oscillation", value: "Vert", status: "Supported" },
-    { label: "Sleep & Recovery", value: "Sleep", status: "Supported" }
+    { label: "Heart Rate Variability", value: "HRV", status: "Supported", icon: "M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" },
+    { label: "VO2 Max Estimation", value: "VO2", status: "Supported", icon: "M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" },
+    { label: "Running Power", value: "Watts", status: "Supported", icon: "M13 10V3L4 14h7v7l9-11h-7z" },
+    { label: "Ground Contact Time", value: "GCT", status: "Supported", icon: "M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" },
+    { label: "Vertical Oscillation", value: "Vert", status: "Supported", icon: "M5 11l7-7 7 7M5 19l7-7 7 7" },
+    { label: "Sleep & Recovery", value: "Sleep", status: "Supported", icon: "M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" }
   ];
 
   return (
-    <div className="relative px-6 pb-24 pt-16 overflow-hidden font-['Poppins'] min-h-[80vh]">
+    <div className="relative px-4 md:px-6 pb-16 md:pb-24 pt-8 md:pt-16 overflow-hidden font-['Poppins'] min-h-[80vh]">
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
       `}</style>
@@ -99,7 +99,7 @@ export default function DeviceIntegration() {
           <Chip radius="full" size="sm" className="bg-[#dfff00]/10 text-[#dfff00] font-bold uppercase tracking-[0.2em] mb-6 border border-[#dfff00]/20 px-4 py-4">
             Universal Sync
           </Chip>
-          <h1 className="text-5xl md:text-7xl font-black uppercase tracking-tighter mb-6 text-white leading-none">
+          <h1 className="text-4xl md:text-5xl lg:text-7xl font-black uppercase tracking-tighter mb-6 text-white leading-none">
             Bring Your Own <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#dfff00] to-lime-500">Device.</span>
           </h1>
           <p className="text-gray-400 text-lg md:text-xl leading-relaxed mx-auto">
@@ -108,7 +108,7 @@ export default function DeviceIntegration() {
         </motion.div>
 
         {/* Setup Steps */}
-        <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-32 relative">
+        <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-24 md:mb-32 relative">
           {/* Connecting line for desktop */}
           <div className="hidden md:block absolute top-1/2 left-10 right-10 h-0.5 bg-gradient-to-r from-[#dfff00]/0 via-[#dfff00]/20 to-[#dfff00]/0 -translate-y-1/2 -z-10"></div>
           
@@ -118,7 +118,7 @@ export default function DeviceIntegration() {
             { step: "03", title: "Analyze", desc: "Our AI processes the biometrics to adjust your recovery and pacing." }
           ].map((item, idx) => (
             <motion.div key={idx} variants={fadeInUp} className="h-full">
-              <Card className="bg-[#111] border border-[#222] p-8 h-full rounded-[2rem] hover:border-[#dfff00]/40 transition-colors flex flex-col text-center relative overflow-hidden group">
+              <Card className="bg-[#111] border border-[#222] p-6 md:p-8 h-full rounded-[2rem] hover:border-[#dfff00]/40 transition-colors flex flex-col text-center relative overflow-hidden group">
                 <div className="w-16 h-16 bg-[#0a0a0a] border border-[#222] group-hover:border-[#dfff00]/50 rounded-full flex items-center justify-center mx-auto mb-6 transition-colors shadow-lg relative z-10">
                   <span className="text-[#dfff00] font-black text-xl">{item.step}</span>
                 </div>
@@ -130,9 +130,9 @@ export default function DeviceIntegration() {
         </motion.div>
 
         {/* Supported Devices Grid */}
-        <div className="mb-32">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tight text-white mb-4">Supported <span className="text-gray-500">Hardware.</span></h2>
+        <div className="mb-24 md:mb-32">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="text-center mb-12 md:mb-16">
+            <h2 className="text-2xl md:text-5xl font-black uppercase tracking-tight text-white mb-4">Supported <span className="text-gray-500">Hardware.</span></h2>
             <p className="text-gray-400 text-lg max-w-2xl mx-auto">We integrate with over 50 of the world's leading endurance sports wearables and sensors.</p>
           </motion.div>
 
@@ -156,28 +156,31 @@ export default function DeviceIntegration() {
         </div>
 
         {/* Data Sync Capabilities (Bento Box style) */}
-        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="mb-32 bg-[#111] border border-[#222] rounded-[3rem] overflow-hidden flex flex-col lg:flex-row">
-          <div className="p-10 md:p-16 lg:w-1/2 flex flex-col justify-center relative">
+        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="mb-24 md:mb-32 bg-[#111] border border-[#222] rounded-[2rem] md:rounded-[3rem] overflow-hidden flex flex-col lg:flex-row">
+          <div className="p-6 md:p-16 lg:w-1/2 flex flex-col justify-center relative text-center md:text-left items-center md:items-start">
             <div className="absolute top-0 left-0 w-64 h-64 bg-[#dfff00]/5 blur-[80px] rounded-full pointer-events-none"></div>
-            <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tight text-white mb-6 relative z-10">
+            <h2 className="text-2xl md:text-4xl font-black uppercase tracking-tight text-white mb-6 relative z-10">
               Deep <span className="text-[#dfff00]">Telemetry.</span>
             </h2>
-            <p className="text-gray-400 text-lg leading-relaxed mb-8 relative z-10">
+            <p className="text-gray-400 text-base md:text-lg leading-relaxed mb-8 relative z-10">
               We don't just track your route and pace. RUVO pulls deep biometric data from your connected devices to feed our advanced coaching algorithms, ensuring every insight is tailored to your exact physiological state.
             </p>
             <Button as={RouterLink} to="/features" radius="full" size="lg" className="bg-white/10 text-white font-bold w-fit border border-white/20 hover:bg-white/20 px-8">
               Explore AI Coaching
             </Button>
           </div>
-          <div className="bg-[#0a0a0a] lg:w-1/2 p-10 md:p-16 border-l border-[#222]">
+          <div className="bg-[#0a0a0a] lg:w-1/2 p-6 md:p-16 border-t lg:border-t-0 lg:border-l border-[#222]">
             <div className="space-y-4">
               {dataMetrics.map((metric, i) => (
                 <div key={i} className="flex items-center justify-between p-4 bg-[#111] border border-[#222] rounded-2xl hover:border-[#dfff00]/30 transition-colors">
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-[#dfff00]/10 flex items-center justify-center text-[#dfff00] font-bold text-[10px] tracking-widest shrink-0">
-                      {metric.value}
+                  <div className="flex items-center gap-4">
+                    <div className="w-10 h-10 rounded-full bg-[#dfff00]/10 flex items-center justify-center text-[#dfff00] shrink-0">
+                      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={metric.icon} /></svg>
                     </div>
-                    <span className="text-gray-300 font-bold text-sm md:text-base">{metric.label}</span>
+                    <div className="flex flex-col">
+                      <span className="text-gray-300 font-bold text-xs md:text-base leading-tight">{metric.label}</span>
+                      <span className="text-[#dfff00]/70 text-[10px] font-bold uppercase tracking-widest mt-0.5">{metric.value}</span>
+                    </div>
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.8)]"></span>
@@ -190,9 +193,9 @@ export default function DeviceIntegration() {
         </motion.div>
 
         {/* Zero-Latency Sync Simulator */}
-        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="mb-32 relative max-w-5xl mx-auto">
+        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="mb-24 md:mb-32 relative max-w-5xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tight text-white mb-4">
+            <h2 className="text-2xl md:text-4xl font-black uppercase tracking-tight text-white mb-4">
               Zero-Latency <span className="text-[#dfff00]">Sync.</span>
             </h2>
             <p className="text-gray-400 text-lg max-w-2xl mx-auto">
@@ -200,7 +203,7 @@ export default function DeviceIntegration() {
             </p>
           </div>
           
-          <div className="relative w-full rounded-[2.5rem] border border-white/10 bg-[#050505] p-10 md:p-20 overflow-hidden shadow-2xl flex flex-col items-center justify-center">
+          <div className="relative w-full rounded-[2rem] md:rounded-[2.5rem] border border-white/10 bg-[#050505] p-6 md:p-20 overflow-hidden shadow-2xl flex flex-col items-center justify-center">
             {/* Minimal Grid Background */}
             <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)] bg-[size:32px_32px] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_50%,#000_20%,transparent_100%)] pointer-events-none"></div>
             
@@ -270,8 +273,8 @@ export default function DeviceIntegration() {
         </motion.div>
 
         {/* Hardware FAQ */}
-        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} variants={fadeInUp} className="max-w-4xl mx-auto mb-32">
-          <h2 className="text-3xl font-black uppercase tracking-tight text-white mb-8 text-center">Sync <span className="text-gray-500">FAQ.</span></h2>
+        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} variants={fadeInUp} className="max-w-4xl mx-auto mb-24 md:mb-32">
+          <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tight text-white mb-8 text-center">Sync <span className="text-gray-500">FAQ.</span></h2>
           <div className="border-t border-white/10">
             {integrationFaqs.map((faq, idx) => (
               <DeviceFaqItem key={idx} faq={faq} />
@@ -280,8 +283,8 @@ export default function DeviceIntegration() {
         </motion.div>
 
         {/* Bottom CTA */}
-        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="text-center pb-12">
-          <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tight text-white mb-6">
+        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="text-center pb-8 md:pb-12">
+          <h2 className="text-3xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight text-white mb-6">
             Ready to <span className="text-gray-500">Connect?</span>
           </h2>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto mb-10">

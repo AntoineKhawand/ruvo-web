@@ -23,6 +23,15 @@ import Analytics from './Analytics.jsx'
 import Rewards from './Rewards.jsx'
 import Challenges from './Challenges.jsx'
 import Terms from './Terms.jsx'
+import Leaderboard from './Leaderboard.jsx'
+import SignUp from './SignUp.jsx'
+import Login from './Login.jsx'
+import NotFound from './NotFound.jsx'
+import Blog from './Blog.jsx'
+import Changelog from './Changelog.jsx'
+import Heatmap from './Heatmap.jsx'
+import Partners from './Partners.jsx'
+import Shop from './Shop.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -50,6 +59,15 @@ createRoot(document.getElementById('root')).render(
               <Route path="rewards" element={<Rewards />} />
               <Route path="challenges" element={<Challenges />} />
               <Route path="terms" element={<Terms />} />
+              <Route path="leaderboard" element={<Leaderboard />} />
+              <Route path="signup" element={<SignUp />} />
+              <Route path="login" element={<Login />} />
+              <Route path="blog" element={<Blog />} />
+              <Route path="changelog" element={<Changelog />} />
+              <Route path="heatmap" element={<Heatmap />} />
+              <Route path="partners" element={<Partners />} />
+              <Route path="shop" element={<Shop />} />
+              <Route path="*" element={<NotFound />} />
             </Route>
           </Routes>
         </BrowserRouter>
