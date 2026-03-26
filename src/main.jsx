@@ -1,9 +1,12 @@
+import { inject } from '@vercel/analytics';
 import { StrictMode, lazy } from 'react'
 import { createRoot } from 'react-dom/client'
 import { HeroUIProvider } from "@heroui/react"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import './index.css'
 import Layout from './Layout.jsx'
+
+inject();
 
 const App = lazy(() => import('./App.jsx'))
 const Features = lazy(() => import('./Features.jsx'))
@@ -25,8 +28,6 @@ const Rewards = lazy(() => import('./Rewards.jsx'))
 const Challenges = lazy(() => import('./Challenges.jsx'))
 const Terms = lazy(() => import('./Terms.jsx'))
 const Leaderboard = lazy(() => import('./Leaderboard.jsx'))
-const SignUp = lazy(() => import('./SignUp.jsx'))
-const Login = lazy(() => import('./Login.jsx'))
 const NotFound = lazy(() => import('./NotFound.jsx'))
 const Blog = lazy(() => import('./Blog.jsx'))
 const Changelog = lazy(() => import('./Changelog.jsx'))
@@ -61,8 +62,6 @@ createRoot(document.getElementById('root')).render(
               <Route path="challenges" element={<Challenges />} />
               <Route path="terms" element={<Terms />} />
               <Route path="leaderboard" element={<Leaderboard />} />
-              <Route path="signup" element={<SignUp />} />
-              <Route path="login" element={<Login />} />
               <Route path="blog" element={<Blog />} />
               <Route path="changelog" element={<Changelog />} />
               <Route path="heatmap" element={<Heatmap />} />

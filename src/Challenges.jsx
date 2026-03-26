@@ -235,8 +235,8 @@ export default function Challenges() {
             Are You <span className="text-gray-500">Ready?</span>
           </h2>
           <div className="flex justify-center items-center">
-            <Button as={RouterLink} to="/signup" radius="full" size="lg" className="bg-[#dfff00] text-black font-bold px-12 py-8 text-lg hover:scale-105 transition-transform shadow-[0_0_20px_rgba(223,255,0,0.15)]">
-              Join Your First Challenge
+            <Button radius="full" size="lg" className="bg-[#dfff00] text-black font-bold px-12 py-8 text-lg hover:scale-105 transition-transform shadow-[0_0_20px_rgba(223,255,0,0.15)]">
+              Get the App to Join
             </Button>
           </div>
         </motion.div>

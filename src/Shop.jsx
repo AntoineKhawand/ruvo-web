@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Card, Button, Chip, Input } from "@heroui/react";
-import hoodieImg from './hooded-sweatshirt-black-perfect-autumn-generated-by-ai.jpg';
+import hoodieImg from './RUVO x Healing Makers Hoodie.png';
 import teeImg from './RUVO Elite Tech Tee.png';
 import emailjs from '@emailjs/browser';
 
@@ -109,9 +109,9 @@ Total: $${cartTotal}`;
   };
 
   const products = [
-    { name: "RUVO Elite Tech Tee", price: "$45", img: teeImg, badge: "New", imgClass: "saturate-[0.8]", sizes: ["S", "M", "L", "XL"], colors: ["Black", "White"] },
-    { name: "Aerodynamic Running Cap", price: "$25", img: "/Aerodynamic Running Cap.png", badge: "Best Seller", colors: ["Black", "White"] },
-    { name: "RUVO x Healing Makers Hoodie", price: "$75", img: hoodieImg, badge: "Collab", sizes: ["S", "M", "L", "XL"], colors: ["Black"] }
+    { name: "Aerodynamic Running Cap", price: "$15", img: "/Aerodynamic Running Cap.png", badge: "Best Seller", imgClass: "mix-blend-normal", colors: ["Black", "White"] },
+    { name: "RUVO Elite Tech Tee", price: "$25", img: teeImg, badge: "New", imgClass: "saturate-[0.8]", sizes: ["S", "M", "L", "XL"], colors: ["Black", "White"] },
+    { name: "RUVO x Healing Makers Hoodie", price: "$45", img: hoodieImg, badge: "Collab", sizes: ["S", "M", "L", "XL"], colors: ["Black"] }
   ];
 
   return (
