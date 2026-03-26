@@ -137,15 +137,6 @@ export default function Blog() {
   }, [activeCategory]);
 
   useEffect(() => {
-    // Set favicon
-    let link = document.querySelector("link[rel~='icon']");
-    if (!link) {
-      link = document.createElement('link');
-      link.rel = 'icon';
-      document.getElementsByTagName('head')[0].appendChild(link);
-    }
-    link.href = '/favicon.ico'; // Assuming you have a favicon.ico in your public folder
-
     // Set meta title and description
     if (selectedArticle) {
       document.title = selectedArticle.title;
