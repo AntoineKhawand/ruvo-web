@@ -22,11 +22,10 @@ export default function Layout() {
         setIsLoaded(true);
         window.scrollTo(0, 0); // Scroll to top on route change
         setIsMenuOpen(false);
-
         // 1. Google Analytics Pageview Tracking
-        if (typeof window !== "undefined" && window.gtag) {
-            window.gtag('config', 'G-F3H97VCE0F', { page_path: pathname });
-        }
+        // if (typeof window !== "undefined" && window.gtag) {
+        //     window.gtag('config', 'G-F3H97VCE0F', { page_path: pathname });
+        // }
 
         // 2. Dynamic SEO Titles & Meta Descriptions
         const seoData = {
