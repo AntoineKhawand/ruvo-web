@@ -3,8 +3,8 @@ import { StrictMode, lazy } from 'react'
 import { createRoot } from 'react-dom/client'
 import { HeroUIProvider } from "@heroui/react"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-import './index.css'
-import ReactGA from 'react-ga4';
+import './index.css';
+import * as ReactGA from 'react-ga4';
 import Layout from './Layout.jsx'
 
 inject();
