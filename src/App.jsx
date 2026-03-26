@@ -218,7 +218,7 @@ export default function App() {
             ></video>
             <div className="absolute bottom-0 left-0 w-full h-full bg-gradient-to-t from-black via-black/50 to-transparent z-10 pointer-events-none"></div>
           </div>
-          <motion.div initial="hidden" animate="visible" variants={fadeInUp} className="relative z-20 max-w-5xl mx-auto flex flex-col items-center w-full">
+          <motion.div animate="visible" variants={fadeInUp} className="relative z-20 max-w-5xl mx-auto flex flex-col items-center w-full">
             <Chip radius="full" className="bg-[#dfff00]/10 backdrop-blur-md border border-[#dfff00]/30 text-[#dfff00] font-bold mb-6 px-4 py-2" size="lg">
               <div className="flex items-center gap-2.5">
                 <span className="relative flex h-2.5 w-2.5">
