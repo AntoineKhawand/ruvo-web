@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Card, Button, Chip, Input } from "@heroui/react";
 import hoodieImg from './hooded-sweatshirt-black-perfect-autumn-generated-by-ai.jpg';
-import teeImg from './RUVO Elite Tech Tee.png';
 import emailjs from '@emailjs/browser';
 
 export default function Shop() {
@@ -109,8 +108,7 @@ Total: $${cartTotal}`;
   };
 
   const products = [
-    { name: "RUVO Elite Tech Tee", price: "$45", img: teeImg, badge: "New", imgClass: "saturate-[0.8]", sizes: ["S", "M", "L", "XL"], colors: ["Black", "White"] },
-    { name: "Aerodynamic Running Cap", price: "$25", img: "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?q=80&w=800&auto=format&fit=crop", badge: "Best Seller", colors: ["Black", "White"] },
+    { name: "Aerodynamic Running Cap", price: "$25", img: "/Aerodynamic Running Cap.png", badge: "Best Seller", colors: ["Black", "White"] },
     { name: "RUVO x Healing Makers Hoodie", price: "$75", img: hoodieImg, badge: "Collab", sizes: ["S", "M", "L", "XL"], colors: ["Black"] }
   ];
 
