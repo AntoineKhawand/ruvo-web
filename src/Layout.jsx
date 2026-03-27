@@ -118,7 +118,7 @@ export default function Layout() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -20 }}
-                        transition={{ duration: 0.3, ease: "easeOut" }}
+                        transition={{ duration: 0.5, ease: "easeInOut" }}
                         className="flex-grow pt-[80px]"
                     >
                         <Suspense fallback={<PageLoader />}>
