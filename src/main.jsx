@@ -1,13 +1,14 @@
 import { inject } from '@vercel/analytics';
-import { StrictMode, lazy } from 'react'
+import { StrictMode, lazy, Suspense } from 'react'
 import { createRoot } from 'react-dom/client'
 import { HeroUIProvider } from "@heroui/react"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import './index.css'
 import Layout from './Layout.jsx'
-
+import ComingSoonPage from "./ComingSoonPage.jsx";
 inject();
 
+const isComingSoon = true;
 
 const App = lazy(() => import('./App.jsx'))
 const Features = lazy(() => import('./Features.jsx'))
@@ -36,42 +37,57 @@ const Heatmap = lazy(() => import('./Heatmap.jsx'))
 const Partners = lazy(() => import('./Partners.jsx'))
 const Shop = lazy(() => import('./Shop.jsx'))
 
+const PageLoader = () => (
+  <div className="flex items-center justify-center min-h-screen">
+    <div className="flex flex-col items-center gap-4">
+      <div className="w-12 h-12 border-4 border-[#dfff00] border-t-transparent rounded-full animate-spin"></div>
+      <p className="font-bold uppercase tracking-widest text-sm text-[#dfff00]">Loading...</p>
+    </div>
+  </div>
+);
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <HeroUIProvider>
       <main className="dark text-foreground bg-background">
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Layout />}>
-              <Route index element={<App />} />
-              <Route path="features" element={<Features />} />
-              <Route path="reviews" element={<Reviews />} />
-              <Route path="support" element={<Support />} />
-              <Route path="support-center" element={<SupportCenter />} />
-              <Route path="support-center/category/:categoryId" element={<SupportCategory />} />
-              <Route path="support-center/article/:articleSlug" element={<SupportArticle />} />
-              <Route path="community-guidelines" element={<CommunityGuidelines />} />
-              <Route path="careers" element={<Careers />} />
-              <Route path="press" element={<Press />} />
-              <Route path="about" element={<About />} />
-              <Route path="privacy" element={<Privacy />} />
-              <Route path="system-status" element={<SystemStatus />} />
-              <Route path="device-integration" element={<DeviceIntegration />} />
-              <Route path="ai-coaching" element={<AiCoaching />} />
-              <Route path="analytics" element={<Analytics />} />
-              <Route path="rewards" element={<Rewards />} />
-              <Route path="challenges" element={<Challenges />} />
-              <Route path="terms" element={<Terms />} />
-              <Route path="leaderboard" element={<Leaderboard />} />
-              <Route path="blog" element={<Blog />} />
-              <Route path="changelog" element={<Changelog />} />
-              <Route path="heatmap" element={<Heatmap />} />
-              <Route path="partners" element={<Partners />} />
-              <Route path="shop" element={<Shop />} />
-              <Route path="*" element={<NotFound />} />
-            </Route>
-          </Routes>
-        </BrowserRouter>
+        {isComingSoon ? (
+          <ComingSoonPage />
+        ) : (
+          <BrowserRouter>
+            <Suspense fallback={<PageLoader />}>
+              <Routes>
+                <Route path="/" element={<Layout />}>
+                  <Route index element={<App />} />
+                  <Route path="features" element={<Features />} />
+                  <Route path="reviews" element={<Reviews />} />
+                  <Route path="support" element={<Support />} />
+                  <Route path="support-center" element={<SupportCenter />} />
+                  <Route path="support-center/category/:categoryId" element={<SupportCategory />} />
+                  <Route path="support-center/article/:articleSlug" element={<SupportArticle />} />
+                  <Route path="community-guidelines" element={<CommunityGuidelines />} />
+                  <Route path="careers" element={<Careers />} />
+                  <Route path="press" element={<Press />} />
+                  <Route path="about" element={<About />} />
+                  <Route path="privacy" element={<Privacy />} />
+                  <Route path="system-status" element={<SystemStatus />} />
+                  <Route path="device-integration" element={<DeviceIntegration />} />
+                  <Route path="ai-coaching" element={<AiCoaching />} />
+                  <Route path="analytics" element={<Analytics />} />
+                  <Route path="rewards" element={<Rewards />} />
+                  <Route path="challenges" element={<Challenges />} />
+                  <Route path="terms" element={<Terms />} />
+                  <Route path="leaderboard" element={<Leaderboard />} />
+                  <Route path="blog" element={<Blog />} />
+                  <Route path="changelog" element={<Changelog />} />
+                  <Route path="heatmap" element={<Heatmap />} />
+                  <Route path="partners" element={<Partners />} />
+                  <Route path="shop" element={<Shop />} />
+                  <Route path="*" element={<NotFound />} />
+                </Route>
+              </Routes>
+            </Suspense>
+          </BrowserRouter>
+        )}
       </main>
     </HeroUIProvider>
   </StrictMode>,
