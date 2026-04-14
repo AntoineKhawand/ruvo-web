@@ -12,6 +12,7 @@ export default function AiCoaching() {
     { "@context": "https://schema.org", "@type": "WebPage", "url": "https://ruvo.app/ai-coaching", "name": "AI Smart Coaching | RUVO", "isPartOf": { "@id": "https://ruvo.app/#website" }, "breadcrumb": { "@type": "BreadcrumbList", "itemListElement": [{ "@type": "ListItem", "position": 1, "name": "Home", "item": "https://ruvo.app/" }, { "@type": "ListItem", "position": 2, "name": "AI Coaching", "item": "https://ruvo.app/ai-coaching" }] } }
   );
   const [fiveKTime, setFiveKTime] = useState("22:30");
+  const [activePrompt, setActivePrompt] = useState(0);
   const [predictedTime, setPredictedTime] = useState(null);
   const [isCalculating, setIsCalculating] = useState(false);
 
