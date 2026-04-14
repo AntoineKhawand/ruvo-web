@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import { sendEmail } from "../emailService";
 
 interface TimeLeft {
   days: number;
@@ -8,9 +9,14 @@ interface TimeLeft {
   seconds: number;
 }
 
+type FormStatus = "idle" | "submitting" | "success" | "error";
+
 export default function WaitlistPage() {
   const [timeLeft, setTimeLeft] = useState<TimeLeft>(calculateTimeLeft());
   const [isMounted, setIsMounted] = useState(false);
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<FormStatus>("idle");
+  const emailRef = useRef<HTMLInputElement>(null);
 
   // Set your expected launch date here
   function calculateTimeLeft(): TimeLeft {
@@ -90,37 +96,71 @@ export default function WaitlistPage() {
 
         {/* Waitlist Form */}
         <div className="w-full max-w-md sm:max-w-lg mt-8">
-          <form 
-            className="relative flex flex-col sm:flex-row items-center gap-3 bg-white/5 p-2 rounded-3xl sm:rounded-full border border-white/10 backdrop-blur-md shadow-2xl focus-within:ring-2 focus-within:ring-lime-500/50 transition-all"
-            onSubmit={(e) => {
-              e.preventDefault();
-              // Add your form submission logic here
-              alert("Thanks for joining the Ruvo waitlist!");
-            }}
-          >
-            <div className="flex-1 w-full relative">
-              <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
-                <svg className="w-5 h-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+          {status === "success" ? (
+            <div className="flex flex-col items-center gap-3 py-6">
+              <div className="w-14 h-14 rounded-full bg-lime-500/10 border border-lime-500/30 flex items-center justify-center shadow-[0_0_20px_rgba(132,204,22,0.2)]">
+                <svg className="w-7 h-7 text-lime-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
               </div>
-              <input
-                type="email"
-                placeholder="Enter your email address"
-                required
-                className="w-full pl-12 pr-4 py-3 bg-transparent text-white focus:outline-none placeholder:text-slate-500"
-              />
+              <p className="text-white font-bold text-lg">You're on the list!</p>
+              <p className="text-slate-400 text-sm">We'll notify you the moment RUVO launches.</p>
             </div>
-            <button
-              type="submit"
-              className="w-full sm:w-auto px-8 py-3 bg-lime-500 hover:bg-lime-400 text-black font-bold rounded-full transition-all shadow-[0_0_20px_-5px_rgba(132,204,22,0.5)] hover:shadow-[0_0_25px_-5px_rgba(132,204,22,0.7)] active:scale-95 whitespace-nowrap"
+          ) : (
+            <form
+              className="relative flex flex-col sm:flex-row items-center gap-3 bg-white/5 p-2 rounded-3xl sm:rounded-full border border-white/10 backdrop-blur-md shadow-2xl focus-within:ring-2 focus-within:ring-lime-500/50 transition-all"
+              onSubmit={async (e) => {
+                e.preventDefault();
+                if (status === "submitting") return;
+                setStatus("submitting");
+                try {
+                  await sendEmail(
+                    import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+                    { user_email: email, reply_to: email }
+                  );
+                  setStatus("success");
+                  setEmail("");
+                } catch {
+                  setStatus("error");
+                }
+              }}
             >
-              Notify Me
-            </button>
-          </form>
-          <p className="text-sm text-slate-500 mt-6 font-medium">
-            No spam. Unsubscribe at any time.
-          </p>
+              <div className="flex-1 w-full relative">
+                <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
+                  <svg className="w-5 h-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                </div>
+                <input
+                  ref={emailRef}
+                  type="email"
+                  value={email}
+                  onChange={(e) => { setEmail(e.target.value); if (status === "error") setStatus("idle"); }}
+                  placeholder="Enter your email address"
+                  required
+                  disabled={status === "submitting"}
+                  className="w-full pl-12 pr-4 py-3 bg-transparent text-white focus:outline-none placeholder:text-slate-500 disabled:opacity-50"
+                />
+              </div>
+              <button
+                type="submit"
+                disabled={status === "submitting"}
+                className="w-full sm:w-auto px-8 py-3 bg-lime-500 hover:bg-lime-400 text-black font-bold rounded-full transition-all shadow-[0_0_20px_-5px_rgba(132,204,22,0.5)] hover:shadow-[0_0_25px_-5px_rgba(132,204,22,0.7)] active:scale-95 whitespace-nowrap disabled:opacity-60 disabled:cursor-not-allowed"
+              >
+                {status === "submitting" ? "Joining..." : "Notify Me"}
+              </button>
+            </form>
+          )}
+          {status === "error" && (
+            <p className="text-red-400 text-sm mt-3 text-center font-medium">
+              Something went wrong. Please try again.
+            </p>
+          )}
+          {status !== "success" && (
+            <p className="text-sm text-slate-500 mt-6 font-medium">
+              No spam. Unsubscribe at any time.
+            </p>
+          )}
         </div>
 
         {/* Back Link */}

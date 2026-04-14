@@ -8,6 +8,12 @@ import Layout from './Layout.jsx'
 
 inject();
 
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').catch(() => {});
+  });
+}
+
 
 const App = lazy(() => import('./App.jsx'))
 const Features = lazy(() => import('./Features.jsx'))
