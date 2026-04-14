@@ -8,9 +8,10 @@
   <meta name="description" content="Redefine your limits with RUVO. AI coaching, precise GPS tracking, and a gamified reward system. Earn XP and coins for real discounts at local health brands." />
   <meta name="theme-color" content="#050505" />
 
-  <!-- Favicon -->
+  <!-- Favicon + PWA -->
   <link rel="icon" type="image/png" href="/icon.png" />
   <link rel="apple-touch-icon" href="/icon.png" />
+  <link rel="manifest" href="/manifest.json" />
 
   <!-- Preconnect to font and analytics origins ASAP -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -121,14 +122,14 @@
   }
   </script>
 
-  <!-- Google Analytics (deferred — non-blocking) -->
-  <script defer src="https://www.googletagmanager.com/gtag/js?id=G-F3H97VCE0F"></script>
+  <!-- Google Analytics — consent default: denied until CookieBanner grants -->
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
+    gtag('consent', 'default', { analytics_storage: 'denied' });
     gtag('js', new Date());
-    gtag('config', 'G-F3H97VCE0F', { send_page_view: false });
   </script>
+  <script defer src="https://www.googletagmanager.com/gtag/js?id=G-F3H97VCE0F"></script>
 </head>
 
 <body>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, Suspense } from "react";
+import CookieBanner from './CookieBanner.jsx';
 import { AnimatePresence, motion } from "framer-motion";
 import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Button, NavbarMenuToggle, NavbarMenu, NavbarMenuItem } from "@heroui/react";
 import { Link, Outlet, useLocation } from "react-router-dom";
@@ -261,6 +262,9 @@ export default function Layout() {
                 </footer>
 
             </div>
+
+            {/* --- GDPR COOKIE CONSENT --- */}
+            <CookieBanner />
         </>
     );
 }

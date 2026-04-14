@@ -55,5 +55,6 @@ export function usePageMeta(title, description, path, schema) {
       document.title = 'RUVO | AI Running Coach & Gamified Fitness';
       if (ldScript) ldScript.remove();
     };
-  }, [title, description, path, schema]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [title, description, path, JSON.stringify(schema)]);
 }
