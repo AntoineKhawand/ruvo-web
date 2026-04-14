@@ -40,12 +40,12 @@ export default function WaitlistPage() {
   const formatTime = (time: number) => String(time).padStart(2, "0");
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center bg-black overflow-hidden font-sans text-slate-200 selection:bg-lime-500/30">
+    <div className="relative min-h-screen flex items-center justify-center bg-black overflow-hidden font-sans text-slate-200 selection:bg-lime-500/30 p-4 sm:p-6">
       {/* Ambient Background Effects */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-lime-500/20 blur-[120px] rounded-full pointer-events-none" />
       <div className="absolute bottom-0 right-0 w-[600px] h-[300px] bg-yellow-500/10 blur-[100px] rounded-full pointer-events-none" />
 
-      <div className="relative z-10 w-full max-w-4xl p-6 flex flex-col items-center text-center space-y-12">
+      <div className="relative z-10 w-full max-w-md sm:max-w-xl lg:max-w-4xl flex flex-col items-center text-center space-y-10 sm:space-y-12">
         
         {/* Header Section */}
         <div className="space-y-6 flex flex-col items-center">
@@ -53,13 +53,13 @@ export default function WaitlistPage() {
             <span className="flex h-2 w-2 rounded-full bg-lime-500 shadow-[0_0_8px_rgba(132,204,22,0.8)]"></span>
             Coming Soon
           </div>
-          <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight text-white drop-shadow-sm">
+          <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight text-white drop-shadow-sm">
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-lime-400 to-green-500">
               Ruvo
             </span>{" "}
             is almost here.
           </h1>
-          <p className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-base sm:text-lg md:text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed">
             We are putting the final touches on the platform. Join the exclusive waitlist today and be the first to know the second we launch.
           </p>
         </div>
@@ -75,9 +75,9 @@ export default function WaitlistPage() {
             ].map((block) => (
               <div
                 key={block.label}
-                className="flex flex-col items-center justify-center bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-3xl w-28 h-28 md:w-36 md:h-36 shadow-2xl transition-transform hover:scale-105"
+                className="flex flex-col items-center justify-center bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-3xl w-24 h-24 sm:w-28 sm:h-28 md:w-36 md:h-36 shadow-2xl transition-transform hover:scale-105"
               >
-                <span className="text-4xl md:text-6xl font-bold text-white mb-2 tracking-tighter">
+                <span className="text-3xl sm:text-4xl md:text-6xl font-bold text-white mb-2 tracking-tighter">
                   {formatTime(block.value)}
                 </span>
                 <span className="text-xs md:text-sm font-semibold text-lime-300/80 uppercase tracking-widest">
@@ -89,7 +89,7 @@ export default function WaitlistPage() {
         )}
 
         {/* Waitlist Form */}
-        <div className="w-full max-w-lg mt-8">
+        <div className="w-full max-w-md sm:max-w-lg mt-8">
           <form 
             className="relative flex flex-col sm:flex-row items-center gap-3 bg-white/5 p-2 rounded-3xl sm:rounded-full border border-white/10 backdrop-blur-md shadow-2xl focus-within:ring-2 focus-within:ring-lime-500/50 transition-all"
             onSubmit={(e) => {
