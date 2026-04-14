@@ -2,8 +2,10 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Card } from "@heroui/react";
 import { Link as RouterLink } from "react-router-dom";
+import { usePageMeta } from './usePageMeta';
 
 export default function About() {
+  usePageMeta('About RUVO — The AI Running Coach Born in the Middle East', 'Learn the story behind RUVO: our mission to redefine running with AI coaching, gamified rewards, and elite analytics built for athletes who never settle.', '/about', {"":"https://schema.org","":"AboutPage","url":"https://ruvo.app/about","name":"About RUVO","isPartOf":{"":"https://ruvo.app/#website"},"breadcrumb":{"":"BreadcrumbList","itemListElement":[{"":"ListItem","position":1,"name":"Home","item":"https://ruvo.app/"},{"":"ListItem","position":2,"name":"About","item":"https://ruvo.app/about"}]}});
   const fadeInUp = {
     hidden: { opacity: 0, y: 30 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } }
@@ -29,9 +31,6 @@ export default function About() {
 
   return (
     <div className="relative px-6 pb-24 pt-16 overflow-hidden font-['Poppins'] min-h-[80vh]">
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
-      `}</style>
       
       {/* Background Glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-[#dfff00]/5 blur-[120px] rounded-full pointer-events-none"></div>
@@ -115,7 +114,7 @@ export default function About() {
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="w-[100vw] relative left-1/2 -translate-x-1/2 h-[80vh] min-h-[600px] mt-32 group overflow-hidden cursor-pointer bg-[#050505]">
           
           {/* ⚠️ BACKGROUND IMAGE HERE ⚠️ */}
-          <img src="/drew-darby-2BTaFPEO5YU-unsplash.jpg" alt="Antoine El Khawand" className="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-transform duration-[1.5s] ease-out group-hover:scale-105 opacity-60 group-hover:opacity-100" />
+          <img src="/drew-darby-2BTaFPEO5YU-unsplash.jpg" alt="Antoine El Khawand" width="1920" height="1080" loading="lazy" className="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-transform duration-[1.5s] ease-out group-hover:scale-105 opacity-60 group-hover:opacity-100" />
           
           {/* Overlay Gradient for Text Readability */}
           <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/50 to-transparent opacity-100 transition-opacity duration-1000 pointer-events-none"></div>

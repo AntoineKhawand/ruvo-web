@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Card, Button, Chip } from "@heroui/react";
 import { Link as RouterLink } from "react-router-dom";
+import { usePageMeta } from './usePageMeta';
 
 const integrationFaqs = [
   { q: "Does continuous sync drain my smartwatch battery?", a: "Not at all. RUVO utilizes Bluetooth Low Energy (BLE) and bulk-data background transfers, which have a negligible impact on your device's battery life." },
@@ -31,6 +32,13 @@ function DeviceFaqItem({ faq }) {
 }
 
 export default function DeviceIntegration() {
+  usePageMeta(
+    "Device Integration | RUVO — Connect 50+ Wearables",
+    "RUVO integrates with Apple Watch, Garmin, Fitbit, WHOOP, Polar, Samsung Galaxy Watch, Apple Health, Google Fit, and 50+ devices.",
+    "/device-integration",
+    {"@context":"https://schema.org","@type":"WebPage","url":"https://ruvo.app/device-integration","name":"Device Integration | RUVO — Connect 50+ Wearables","isPartOf":{"@id":"https://ruvo.app/#website"},"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://ruvo.app/"},{"@type":"ListItem","position":2,"name":"Device Integration","item":"https://ruvo.app/device-integration"}]}}
+  );
+
   const fadeInUp = {
     hidden: { opacity: 0, y: 30 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } }
@@ -85,9 +93,6 @@ export default function DeviceIntegration() {
 
   return (
     <div className="relative px-4 md:px-6 pb-16 md:pb-24 pt-8 md:pt-16 overflow-hidden font-['Poppins'] min-h-[80vh]">
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
-      `}</style>
       
       {/* Background Glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-[#dfff00]/5 blur-[120px] rounded-full pointer-events-none"></div>

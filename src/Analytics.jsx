@@ -2,8 +2,16 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Card, Button, Chip } from "@heroui/react";
 import { Link as RouterLink } from "react-router-dom";
+import { usePageMeta } from './usePageMeta';
 
 export default function Analytics() {
+  usePageMeta(
+    "Elite Analytics | RUVO — Heart Rate Zones, Pace & VO2 Max",
+    "Deep performance analytics for runners: heart rate zone mapping, pace distribution, VO2 Max tracking, and injury-prevention load monitoring.",
+    "/analytics",
+    {"@context":"https://schema.org","@type":"WebPage","url":"https://ruvo.app/analytics","name":"Elite Analytics | RUVO — Heart Rate Zones, Pace & VO2 Max","isPartOf":{"@id":"https://ruvo.app/#website"},"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://ruvo.app/"},{"@type":"ListItem","position":2,"name":"Analytics","item":"https://ruvo.app/analytics"}]}}
+  );
+
   const fadeInUp = {
     hidden: { opacity: 0, y: 30 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } }
@@ -16,9 +24,6 @@ export default function Analytics() {
 
   return (
     <div className="relative px-6 pb-24 pt-16 overflow-hidden font-['Poppins'] min-h-[80vh]">
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
-      `}</style>
       
       {/* Background Glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-[#dfff00]/5 blur-[120px] rounded-full pointer-events-none"></div>
@@ -34,15 +39,17 @@ export default function Analytics() {
             Data-Driven <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-[#dfff00] to-lime-500">Dominance.</span>
           </h1>
           <p className="text-gray-400 text-lg md:text-xl leading-relaxed mx-auto max-w-2xl">
-            Step inside the lab. We transform your raw biometric and GPS data into actionable, professional-grade insights.
+            Go beyond basic distance and time. Ruvo Pro unlocks deep, biometric-driven insights to help you train smarter, avoid injury, and peak at the right time.
           </p>
         </motion.div>
 
         {/* Large Image Hero Banner */}
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="w-full h-[500px] md:h-[600px] rounded-[3rem] overflow-hidden relative mb-32 group shadow-2xl">
-          <img 
-            src="https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?q=80&w=1740&auto=format&fit=crop" 
-            alt="Athlete running outdoors on road" 
+          <img
+            src="https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?q=80&w=1740&auto=format&fit=crop"
+            alt="Athlete running outdoors on road"
+            width="1740" height="600"
+            loading="lazy"
             className="w-full h-full object-cover grayscale opacity-50 group-hover:opacity-70 group-hover:scale-105 transition-all duration-[2s] ease-out"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/40 to-transparent"></div>
@@ -90,7 +97,7 @@ export default function Analytics() {
           </div>
 
           <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {/* Card 1: Training Load */}
+            {/* Card 1: Long-term Load */}
             <motion.div variants={fadeInUp} className="lg:col-span-2 h-full">
               <Card className="bg-[#111] border border-[#222] p-8 md:p-10 h-full rounded-[2.5rem] hover:border-[#dfff00]/30 transition-colors group flex flex-col justify-between overflow-hidden relative">
                 <div className="absolute top-0 right-0 w-64 h-64 bg-[#dfff00]/5 blur-[70px] rounded-full pointer-events-none group-hover:bg-[#dfff00]/10 transition-colors"></div>
@@ -98,8 +105,8 @@ export default function Analytics() {
                   <div className="w-12 h-12 bg-[#222] rounded-2xl flex items-center justify-center mb-6 border border-white/5 text-[#dfff00]">
                     <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
                   </div>
-                  <h3 className="text-2xl font-bold text-white mb-2 tracking-tight">Acute Training Load</h3>
-                  <p className="text-gray-400 text-sm leading-relaxed max-w-md">Monitor your acute-to-chronic workload ratio (ACWR) to find the perfect balance between fitness gains and injury prevention.</p>
+                  <h3 className="text-2xl font-bold text-white mb-2 tracking-tight">Long-term Load & Injury Prediction</h3>
+                  <p className="text-gray-400 text-sm leading-relaxed max-w-md">By tracking the cumulative physical stress on your body (Acute vs. Chronic Training Workload), Elite Analytics explicitly warns you if you are ramping up your mileage too fast to minimize the risk of shin splints, runner's knee, and stress fractures.</p>
                 </div>
                 
                 <div className="relative z-10 w-full h-32 flex items-end justify-between gap-2 px-2">
@@ -114,26 +121,26 @@ export default function Analytics() {
               </Card>
             </motion.div>
 
-            {/* Card 2: VO2 Max */}
+            {/* Card 2: Biometric Recovery */}
             <motion.div variants={fadeInUp} className="h-full">
               <Card className="bg-gradient-to-br from-[#111] to-[#050505] border border-[#222] p-8 md:p-10 h-full rounded-[2.5rem] hover:border-cyan-400/30 transition-colors group flex flex-col justify-center items-center text-center relative overflow-hidden">
                 <div className="absolute inset-0 bg-cyan-400/5 blur-[50px] rounded-full group-hover:bg-cyan-400/10 transition-colors pointer-events-none"></div>
                 <div className="relative w-40 h-40 flex items-center justify-center mb-6 z-10">
                   <svg className="absolute inset-0 w-full h-full transform -rotate-90" viewBox="0 0 100 100">
                     <circle cx="50" cy="50" r="44" fill="none" stroke="#222" strokeWidth="6" />
-                    <motion.circle cx="50" cy="50" r="44" fill="none" stroke="#22v" strokeWidth="6" className="stroke-cyan-400" strokeLinecap="round" strokeDasharray="276" initial={{ strokeDashoffset: 276 }} whileInView={{ strokeDashoffset: 276 - (276 * 0.92) }} transition={{ duration: 2, ease: "easeOut" }} />
+                    <motion.circle cx="50" cy="50" r="44" fill="none" stroke="#22v" strokeWidth="6" className="stroke-cyan-400" strokeLinecap="round" strokeDasharray="276" initial={{ strokeDashoffset: 276 }} whileInView={{ strokeDashoffset: 276 - (276 * 0.98) }} transition={{ duration: 2, ease: "easeOut" }} />
                   </svg>
                   <div className="flex flex-col items-center">
-                    <span className="text-5xl font-black text-white">58<span className="text-lg text-cyan-400">.2</span></span>
-                    <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mt-1">Superior</span>
+                    <span className="text-5xl font-black text-white">98<span className="text-lg text-cyan-400">%</span></span>
+                    <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mt-1">Readiness</span>
                   </div>
                 </div>
-                <h3 className="text-xl font-bold text-white mb-2 relative z-10">VO2 Max Trend</h3>
-                <p className="text-gray-400 text-sm relative z-10">Top 2% for your age group.</p>
+                <h3 className="text-xl font-bold text-white mb-2 relative z-10">Biometric Recovery & Strain Sync</h3>
+                <p className="text-gray-400 text-sm relative z-10">Connect Oura & Whoop to overlay Recovery scores.</p>
               </Card>
             </motion.div>
 
-            {/* Card 3: Critical Power */}
+            {/* Card 3: Pace Distribution */}
             <motion.div variants={fadeInUp} className="h-full">
               <Card className="bg-[#111] border border-[#222] p-8 md:p-10 h-full rounded-[2.5rem] hover:border-yellow-500/30 transition-colors group flex flex-col justify-between overflow-hidden relative">
                 <div className="absolute top-0 right-0 w-64 h-64 bg-yellow-500/5 blur-[70px] rounded-full pointer-events-none group-hover:bg-yellow-500/10 transition-colors"></div>
@@ -141,31 +148,31 @@ export default function Analytics() {
                   <div className="w-12 h-12 bg-[#222] rounded-2xl flex items-center justify-center mb-6 border border-white/5 text-yellow-500 shadow-[0_0_15px_rgba(234,179,8,0.15)] group-hover:scale-110 transition-transform duration-500">
                     <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
                   </div>
-                  <h3 className="text-2xl font-bold text-white mb-2 tracking-tight">Running Power</h3>
-                  <p className="text-gray-400 text-sm leading-relaxed">Your theoretical highest sustainable power output without fatiguing.</p>
+                  <h3 className="text-2xl font-bold text-white mb-2 tracking-tight">Pace Distribution & Split Breakdowns</h3>
+                  <p className="text-gray-400 text-sm leading-relaxed">See exact GPS split times overlaid with elevation changes to highlight your fastest segments and hardest efforts.</p>
                 </div>
                 <div className="mt-auto relative z-10">
                   <div className="flex items-baseline gap-2 mb-3">
-                    <span className="text-5xl font-black text-white tracking-tighter">345</span>
-                    <span className="text-yellow-500 font-bold">W</span>
+                    <span className="text-5xl font-black text-white tracking-tighter">4:15</span>
+                    <span className="text-yellow-500 font-bold">/km</span>
                   </div>
                   <div className="w-full bg-[#222] h-2 rounded-full overflow-hidden">
-                    <motion.div initial={{ width: 0 }} whileInView={{ width: "78%" }} transition={{ duration: 1.5, ease: "easeOut" }} className="bg-gradient-to-r from-yellow-600 to-yellow-400 h-full rounded-full shadow-[0_0_10px_rgba(234,179,8,0.5)]"></motion.div>
+                    <motion.div initial={{ width: 0 }} whileInView={{ width: "85%" }} transition={{ duration: 1.5, ease: "easeOut" }} className="bg-gradient-to-r from-yellow-600 to-yellow-400 h-full rounded-full shadow-[0_0_10px_rgba(234,179,8,0.5)]"></motion.div>
                   </div>
                   <div className="flex justify-between text-[10px] text-gray-500 font-bold uppercase tracking-widest mt-3">
-                    <span>Zone 3</span>
-                    <span className="text-white">Threshold</span>
+                    <span>Negative Split</span>
+                    <span className="text-white">Consistent</span>
                   </div>
                 </div>
               </Card>
             </motion.div>
 
-            {/* Card 4: AI Race Predictor */}
+            {/* Card 4: AI Performance Trends */}
             <motion.div variants={fadeInUp} className="lg:col-span-2 h-full">
               <Card className="bg-[#111] border border-[#222] p-8 md:p-10 h-full rounded-[2.5rem] hover:border-[#dfff00]/30 transition-colors group relative overflow-hidden flex flex-col justify-center">
                 <div className="absolute top-0 right-0 w-64 h-64 bg-[#dfff00]/5 blur-[70px] rounded-full pointer-events-none group-hover:bg-[#dfff00]/10 transition-colors"></div>
-                <h3 className="text-2xl font-bold text-white mb-2 tracking-tight relative z-10">AI Race Predictor</h3>
-                <p className="text-gray-400 text-sm leading-relaxed mb-8 max-w-md relative z-10">Using your VO2 Max, training load, and historical endurance data, our engine simulates your optimal race times.</p>
+                <h3 className="text-2xl font-bold text-white mb-2 tracking-tight relative z-10">AI-Powered Performance Trends</h3>
+                <p className="text-gray-400 text-sm leading-relaxed mb-8 max-w-md relative z-10">The AI Coach analyzes your pacing, elevation gain, and heart rate over your last 30 days. It identifies invisible patterns and generates a custom weekly progress report.</p>
                 
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 relative z-10">
                   {[
@@ -187,12 +194,14 @@ export default function Analytics() {
           </motion.div>
         </div>
 
-        {/* Form Analysis & Shoe Image Section */}
+        {/* HR Zones & Form Image Section */}
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="mb-32 bg-[#050505] border border-white/10 rounded-[3rem] overflow-hidden flex flex-col lg:flex-row shadow-2xl">
           <div className="lg:w-1/2 relative min-h-[400px]">
-             <img 
-               src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" 
-               alt="Runner on track focusing on form" 
+             <img
+               src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+               alt="Runner on track focusing on form"
+               width="1000" height="400"
+               loading="lazy"
                className="absolute inset-0 w-full h-full object-cover grayscale opacity-60"
              />
              <div className="absolute inset-0 bg-gradient-to-r from-[#050505] via-[#050505]/80 to-transparent lg:bg-gradient-to-l"></div>
@@ -204,17 +213,17 @@ export default function Analytics() {
                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" /></svg>
                  </div>
                  <div>
-                   <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Vertical Oscillation</p>
-                   <p className="text-xl font-black text-white">8.4 <span className="text-sm font-normal text-gray-500">cm</span></p>
+                   <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Zone 2 (Aerobic)</p>
+                   <p className="text-xl font-black text-white">45 <span className="text-sm font-normal text-gray-500">mins</span></p>
                  </div>
                </div>
                <div className="bg-black/60 backdrop-blur-md border border-white/10 p-4 rounded-2xl flex items-center gap-4 ml-8">
-                 <div className="w-10 h-10 rounded-full bg-purple-500/20 flex items-center justify-center text-purple-400">
+                 <div className="w-10 h-10 rounded-full bg-red-500/20 flex items-center justify-center text-red-400">
                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
                  </div>
                  <div>
-                   <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Ground Contact</p>
-                   <p className="text-xl font-black text-white">210 <span className="text-sm font-normal text-gray-500">ms</span></p>
+                   <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Zone 5 (VO2 Max)</p>
+                   <p className="text-xl font-black text-white">12 <span className="text-sm font-normal text-gray-500">mins</span></p>
                  </div>
                </div>
              </div>
@@ -222,13 +231,13 @@ export default function Analytics() {
           
           <div className="lg:w-1/2 p-10 md:p-16 flex flex-col justify-center relative bg-gradient-to-br from-[#111] to-[#0a0a0a]">
             <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tight text-white mb-6">
-              Perfect Your <span className="text-[#dfff00]">Form.</span>
+              Advanced <span className="text-[#dfff00]">Heart Rate Zones.</span>
             </h2>
             <p className="text-gray-400 text-lg leading-relaxed mb-8">
-              Connect compatible foot pods or smartwatches to unlock advanced running dynamics. RUVO analyzes your cadence, stride length, and balance to detect form breakdown before it leads to injury.
+              While free users see basic heart rate averages, Pro users get a minute-by-minute breakdown of their time spent in Zones 1 through 5. Understand exactly when you were building endurance (Zone 2) versus pushing your VO2 Max limit (Zone 5), and track how your aerobic efficiency improves over time.
             </p>
             <Button as={RouterLink} to="/device-integration" radius="full" size="lg" className="bg-white/10 text-white font-bold w-fit border border-white/20 hover:bg-white/20 px-8">
-              Connect Hardware
+              Explore Biometrics
             </Button>
           </div>
         </motion.div>
@@ -238,9 +247,26 @@ export default function Analytics() {
           <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tight text-white mb-6">
             Unlock The <span className="text-gray-500">Insights.</span>
           </h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto mb-10">
-            Upgrade to RUVO Elite to access all premium analytics, history comparisons, and AI training adjustments.
-          </p>
+          <div className="max-w-2xl mx-auto mb-10 text-left bg-[#111] border border-[#222] rounded-3xl p-8 shadow-xl">
+             <ul className="space-y-4">
+                <li className="flex items-start gap-3">
+                   <svg className="w-6 h-6 text-[#dfff00] shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" /></svg>
+                   <span className="text-gray-300"><strong className="text-white">Elite Analytics:</strong> Deep Heart Rate Zone mapping & Pace Distribution.</span>
+                </li>
+                <li className="flex items-start gap-3">
+                   <svg className="w-6 h-6 text-[#dfff00] shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" /></svg>
+                   <span className="text-gray-300"><strong className="text-white">Biometric Sync:</strong> Connect Oura & Whoop to overlay Recovery & Readiness scores on your runs.</span>
+                </li>
+                <li className="flex items-start gap-3">
+                   <svg className="w-6 h-6 text-[#dfff00] shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" /></svg>
+                   <span className="text-gray-300"><strong className="text-white">Injury Prevention:</strong> Track your 30-day training load to avoid overtraining bottlenecks.</span>
+                </li>
+                <li className="flex items-start gap-3">
+                   <svg className="w-6 h-6 text-[#dfff00] shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" /></svg>
+                   <span className="text-gray-300"><strong className="text-white">AI Weekly Reports:</strong> Personalized visual breakdowns of your true performance trends.</span>
+                </li>
+             </ul>
+          </div>
           <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
             <Button radius="full" size="lg" className="bg-[#dfff00] text-black font-bold px-10 py-7 text-base hover:scale-105 transition-transform shadow-[0_0_20px_rgba(223,255,0,0.15)] w-full sm:w-auto">
               Start Free Trial

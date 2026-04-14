@@ -1,11 +1,19 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Card, Button, Chip, Input } from "@heroui/react";
-import hoodieImg from './RUVO x Healing Makers Hoodie.png';
+import hoodieImg from './hooded-sweatshirt-black-perfect-autumn-generated-by-ai.jpg';
 import teeImg from './RUVO Elite Tech Tee.png';
-import emailjs from '@emailjs/browser';
+import { sendEmail } from './emailService';
+import { usePageMeta } from './usePageMeta';
 
 export default function Shop() {
+  usePageMeta(
+    "Merch Shop | RUVO — Running Gear & Apparel",
+    "Shop RUVO merch: premium running apparel and gear. Use your earned coins for exclusive discounts.",
+    "/shop",
+    {"@context":"https://schema.org","@type":"WebPage","url":"https://ruvo.app/shop","name":"Merch Shop | RUVO — Running Gear & Apparel","isPartOf":{"@id":"https://ruvo.app/#website"},"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://ruvo.app/"},{"@type":"ListItem","position":2,"name":"Shop","item":"https://ruvo.app/shop"}]}}
+  );
+
   const [cart, setCart] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [checkoutStep, setCheckoutStep] = useState('cart'); // 'cart', 'details', 'payment', 'success'
@@ -14,6 +22,7 @@ export default function Shop() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    phone: '',
     address: '',
     city: '',
     zip: ''
@@ -63,6 +72,9 @@ export default function Shop() {
     const fullMessage = `Order Number: ${generatedOrderNumber}
 
 Shipping Details:
+Name: ${formData.name}
+Email: ${formData.email}
+Phone: ${formData.phone}
 Address: ${formData.address}
 City: ${formData.city}
 ZIP: ${formData.zip}
@@ -81,16 +93,14 @@ Total: $${cartTotal}`;
       message: fullMessage,
     };
 
-    emailjs.send(
-      import.meta.env.VITE_EMAILJS_SERVICE_ID,
+    sendEmail(
       import.meta.env.VITE_EMAILJS_ORDER_TEMPLATE_ID,
-      templateParams,
-      import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+      templateParams
     ).then(() => {
         setIsProcessing(false);
+        setFormData({ name: '', email: '', phone: '', address: '', city: '', zip: '' });
         setCheckoutStep('success');
         setCart([]);
-        setFormData({ name: '', email: '', address: '', city: '', zip: '' });
     }).catch((error) => {
         console.error('EmailJS Error:', error);
         setIsProcessing(false);
@@ -116,9 +126,6 @@ Total: $${cartTotal}`;
 
   return (
     <div className="relative px-4 md:px-6 pb-16 md:pb-24 pt-8 md:pt-16 overflow-hidden font-['Poppins'] min-h-[80vh]">
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
-      `}</style>
       
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-[#dfff00]/5 blur-[120px] rounded-full pointer-events-none"></div>
 
@@ -167,7 +174,7 @@ Total: $${cartTotal}`;
                                   {item.color && <span>Color: {item.color}</span>}
                                 </div>
                               </div>
-                              <button type="button" onClick={() => handleRemoveFromCart(i)} className="p-2 text-gray-500 hover:text-red-500 transition-colors" title="Remove Item">
+                              <button type="button" onClick={() => handleRemoveFromCart(i)} className="p-2 text-gray-500 hover:text-red-500 transition-colors duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500 rounded-lg" title="Remove Item">
                                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
                               </button>
                             </div>
@@ -178,7 +185,7 @@ Total: $${cartTotal}`;
                             <span className="text-gray-400 font-bold uppercase tracking-widest text-xs">Subtotal</span>
                             <span className="text-2xl font-black text-white">${cartTotal}</span>
                           </div>
-                          <Button onPress={() => setCheckoutStep('details')} radius="full" size="lg" className="w-full bg-[#dfff00] text-black font-bold text-base shadow-[0_0_20px_rgba(223,255,0,0.15)]">
+                          <Button onPress={() => setCheckoutStep('details')} radius="full" size="lg" className="w-full bg-[#dfff00] text-black font-bold text-base shadow-[0_0_20px_rgba(223,255,0,0.15)] hover:shadow-[0_0_25px_rgba(223,255,0,0.25)] transition-all duration-200 cursor-pointer focus-visible:ring-2 focus-visible:ring-white">
                             Proceed to Checkout
                           </Button>
                         </div>
@@ -191,7 +198,10 @@ Total: $${cartTotal}`;
                   <form className="flex flex-col h-full" onSubmit={(e) => { e.preventDefault(); setCheckoutStep('payment'); }}>
                     <div className="space-y-5 flex-grow">
                       <Input isRequired label="Full Name" value={formData.name} onValueChange={(val) => setFormData({...formData, name: val})} placeholder="e.g. Sarah Jenkins" classNames={{ inputWrapper: "bg-[#161616] border-[#333] group-data-[focus=true]:border-[#dfff00] transition-colors" }} />
-                      <Input isRequired type="email" label="Email" value={formData.email} onValueChange={(val) => setFormData({...formData, email: val})} placeholder="runner@example.com" classNames={{ inputWrapper: "bg-[#161616] border-[#333] group-data-[focus=true]:border-[#dfff00] transition-colors" }} />
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <Input isRequired type="email" label="Email" value={formData.email} onValueChange={(val) => setFormData({...formData, email: val})} placeholder="runner@example.com" classNames={{ inputWrapper: "bg-[#161616] border-[#333] group-data-[focus=true]:border-[#dfff00] transition-colors" }} />
+                        <Input isRequired type="tel" label="Phone Number" value={formData.phone} onValueChange={(val) => setFormData({...formData, phone: val})} placeholder="+961 00 000 000" classNames={{ inputWrapper: "bg-[#161616] border-[#333] group-data-[focus=true]:border-[#dfff00] transition-colors" }} />
+                      </div>
                       <Input isRequired label="Shipping Address" value={formData.address} onValueChange={(val) => setFormData({...formData, address: val})} placeholder="123 Trail Route St." classNames={{ inputWrapper: "bg-[#161616] border-[#333] group-data-[focus=true]:border-[#dfff00] transition-colors" }} />
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <Input isRequired label="City" value={formData.city} onValueChange={(val) => setFormData({...formData, city: val})} placeholder="Beirut" classNames={{ inputWrapper: "bg-[#161616] border-[#333] group-data-[focus=true]:border-[#dfff00] transition-colors" }} />
@@ -211,7 +221,10 @@ Total: $${cartTotal}`;
 
                       <div 
                         onClick={() => setPaymentMethod('pod')}
-                        className={`p-5 border rounded-2xl cursor-pointer transition-colors ${paymentMethod === 'pod' ? 'border-[#dfff00] bg-[#dfff00]/5' : 'border-[#333] hover:border-[#555] bg-[#111]'}`}
+                        className={`p-5 border rounded-2xl cursor-pointer transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#dfff00] ${paymentMethod === 'pod' ? 'border-[#dfff00] bg-[#dfff00]/5 shadow-[0_4px_20px_-10px_rgba(223,255,0,0.2)]' : 'border-[#333] hover:border-[#555] bg-[#111] hover:bg-[#161616]'}`}
+                        tabIndex={0}
+                        role="button"
+                        onKeyDown={(e) => e.key === 'Enter' && setPaymentMethod('pod')}
                       >
                         <div className="flex items-center gap-3 font-bold text-white mb-2">
                           <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${paymentMethod === 'pod' ? 'border-[#dfff00]' : 'border-gray-500'}`}>
@@ -226,7 +239,10 @@ Total: $${cartTotal}`;
 
                       <div 
                         onClick={() => setPaymentMethod('internal')}
-                        className={`p-5 border rounded-2xl cursor-pointer transition-colors ${paymentMethod === 'internal' ? 'border-[#dfff00] bg-[#dfff00]/5' : 'border-[#333] hover:border-[#555] bg-[#111]'}`}
+                        className={`p-5 border rounded-2xl cursor-pointer transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#dfff00] ${paymentMethod === 'internal' ? 'border-[#dfff00] bg-[#dfff00]/5 shadow-[0_4px_20px_-10px_rgba(223,255,0,0.2)]' : 'border-[#333] hover:border-[#555] bg-[#111] hover:bg-[#161616]'}`}
+                        tabIndex={0}
+                        role="button"
+                        onKeyDown={(e) => e.key === 'Enter' && setPaymentMethod('internal')}
                       >
                         <div className="flex items-center gap-3 font-bold text-white mb-1">
                           <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${paymentMethod === 'internal' ? 'border-[#dfff00]' : 'border-gray-500'}`}>
@@ -247,8 +263,8 @@ Total: $${cartTotal}`;
                         <span className="text-2xl font-black text-white">${cartTotal}</span>
                       </div>
                       <div className="flex gap-3">
-                        <Button onPress={() => setCheckoutStep('details')} variant="flat" radius="full" size="lg" className="bg-[#222] text-white font-bold px-6">Back</Button>
-                        <Button type="submit" isLoading={isProcessing} radius="full" size="lg" className="flex-grow bg-[#dfff00] text-black font-bold text-base shadow-[0_0_20px_rgba(223,255,0,0.15)]">
+                        <Button onPress={() => setCheckoutStep('details')} variant="flat" radius="full" size="lg" className="bg-[#222] text-white font-bold px-6 cursor-pointer hover:bg-[#333] transition-colors duration-200">Back</Button>
+                        <Button type="submit" isLoading={isProcessing} radius="full" size="lg" className="flex-grow bg-[#dfff00] text-black font-bold text-base shadow-[0_0_20px_rgba(223,255,0,0.15)] cursor-pointer hover:shadow-[0_0_25px_rgba(223,255,0,0.25)] transition-all duration-200 focus-visible:ring-2 focus-visible:ring-white">
                           {isProcessing ? 'Processing...' : 'Place Order'}
                         </Button>
                       </div>
@@ -263,7 +279,7 @@ Total: $${cartTotal}`;
                     </div>
                     <h3 className="text-3xl font-black text-white mb-2 tracking-tight">Order Placed!</h3>
                     <p className="text-gray-400 mb-8 leading-relaxed">Thank you for gearing up with RUVO. Your order <span className="text-white font-bold">#{orderNumber}</span> is being processed.</p>
-                    <Button onPress={() => setIsCartOpen(false)} radius="full" size="lg" className="bg-[#222] text-white hover:bg-[#333] font-bold w-full">
+                    <Button onPress={() => setIsCartOpen(false)} radius="full" size="lg" className="bg-[#222] text-white hover:bg-[#333] font-bold w-full cursor-pointer transition-colors duration-200">
                       Continue Shopping
                     </Button>
                   </div>
@@ -288,8 +304,8 @@ Total: $${cartTotal}`;
         </motion.div>
 
         {/* Healing Makers Collaboration Banner */}
-        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] border border-[#333] rounded-[2rem] md:rounded-[3rem] p-6 md:p-16 mb-16 md:mb-24 relative overflow-hidden group flex flex-col md:flex-row items-center gap-8 md:gap-10 shadow-2xl text-center md:text-left">
-          <div className="absolute inset-0 bg-[#dfff00]/5 blur-[80px] rounded-full pointer-events-none group-hover:bg-[#dfff00]/10 transition-colors duration-700"></div>
+        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] border border-[#333] rounded-[2rem] md:rounded-[3rem] p-6 md:p-16 mb-16 md:mb-24 relative overflow-hidden group flex flex-col md:flex-row items-center gap-8 md:gap-10 shadow-2xl text-center md:text-left transition-colors duration-300 hover:border-[#444]">
+          <div className="absolute inset-0 bg-[#dfff00]/5 blur-[80px] rounded-full pointer-events-none group-hover:bg-[#dfff00]/10 transition-colors duration-300"></div>
           <div className="md:w-1/2 relative z-10">
              <Chip className="bg-[#dfff00]/10 text-[#dfff00] font-bold uppercase tracking-[0.2em] mb-4 border border-[#dfff00]/20">Limited Edition</Chip>
              <h2 className="text-3xl md:text-5xl font-black text-white mb-4 tracking-tight uppercase">RUVO <span className="text-gray-500">x</span> Healing Makers</h2>
@@ -302,26 +318,26 @@ Total: $${cartTotal}`;
                  if (grid) {
                    window.scrollTo({ top: grid.getBoundingClientRect().top + window.scrollY - 100, behavior: 'smooth' });
                  }
-               }} radius="full" size="lg" className="bg-[#dfff00] text-black font-bold shadow-[0_0_20px_rgba(223,255,0,0.15)] hover:scale-105 transition-transform w-full sm:w-auto">
+               }} radius="full" size="lg" className="bg-[#dfff00] text-black font-bold shadow-[0_0_20px_rgba(223,255,0,0.15)] hover:shadow-[0_0_25px_rgba(223,255,0,0.25)] transition-all duration-200 cursor-pointer w-full sm:w-auto focus-visible:ring-2 focus-visible:ring-white">
                  Shop the Collab
                </Button>
-               <Button as="a" href="https://www.instagram.com/healingmakerslb/" target="_blank" rel="noopener noreferrer" variant="bordered" radius="full" size="lg" className="text-white border-white/20 hover:bg-white/10 transition-colors flex items-center gap-2">
+               <Button as="a" href="https://www.instagram.com/healingmakerslb/" target="_blank" rel="noopener noreferrer" variant="bordered" radius="full" size="lg" className="text-white border-white/20 hover:bg-white/10 transition-colors duration-200 flex items-center gap-2 cursor-pointer focus-visible:ring-2 focus-visible:ring-white">
                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fillRule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clipRule="evenodd" /></svg>
                 healingmakerslb
               </Button>
             </div>
          </div>
          <div className="md:w-1/2 relative z-10 w-full h-64 md:h-80 rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
-           <img src={hoodieImg} alt="Healing Makers Collab" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[2s]" />
+           <img src={hoodieImg} alt="Healing Makers Collab" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" />
          </div>
        </motion.div>
 
        <motion.div id="merch-grid" variants={staggerContainer} initial="hidden" animate="visible" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-16 md:mb-24">
          {products.map((product, idx) => (
            <motion.div key={idx} variants={fadeInUp} className="group">
-             <Card className="bg-[#111] border border-[#222] rounded-[2rem] overflow-hidden hover:border-[#dfff00]/40 transition-colors h-full flex flex-col">
+             <Card className="bg-[#111] border border-[#222] rounded-[2rem] overflow-hidden hover:border-[#dfff00]/40 hover:shadow-[0_8px_30px_-10px_rgba(223,255,0,0.15)] transition-all duration-300 h-full flex flex-col">
                <div className="relative h-64 w-full bg-[#1a1a1a] overflow-hidden">
-                <img src={product.img} alt={product.name} className={`w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ${product.imgClass || 'mix-blend-luminosity'}`} />
+                <img src={product.img} alt={product.name} className={`w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 ease-out ${product.imgClass || 'mix-blend-luminosity'}`} />
                  {product.badge && (
                    <Chip size="sm" className="absolute top-4 left-4 bg-white text-black font-bold uppercase tracking-widest text-[10px] z-10 border-none shadow-md">
                      {product.badge}
@@ -335,7 +351,7 @@ Total: $${cartTotal}`;
                  <div className="flex gap-2 mb-6 mt-auto">
                    {product.sizes && (
                      <select 
-                       className="bg-[#222] text-xs text-white border border-[#333] rounded-lg px-2 py-1.5 focus:outline-none focus:border-[#dfff00] w-full"
+                       className="bg-[#222] text-xs text-white border border-[#333] rounded-lg px-2 py-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#dfff00] transition-shadow duration-200 cursor-pointer w-full"
                        value={selections[idx]?.size || product.sizes[0]}
                        onChange={(e) => updateSelection(idx, 'size', e.target.value)}
                      >
@@ -344,7 +360,7 @@ Total: $${cartTotal}`;
                    )}
                    {product.colors && (
                      <select 
-                       className="bg-[#222] text-xs text-white border border-[#333] rounded-lg px-2 py-1.5 focus:outline-none focus:border-[#dfff00] w-full"
+                       className="bg-[#222] text-xs text-white border border-[#333] rounded-lg px-2 py-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#dfff00] transition-shadow duration-200 cursor-pointer w-full"
                        value={selections[idx]?.color || product.colors[0]}
                        onChange={(e) => updateSelection(idx, 'color', e.target.value)}
                      >
@@ -353,7 +369,7 @@ Total: $${cartTotal}`;
                    )}
                  </div>
 
-                 <Button onPress={() => handleAddToCart(product, idx)} radius="full" className="w-full bg-[#222] text-white font-bold group-hover:bg-[#dfff00] group-hover:text-black transition-colors">
+                 <Button onPress={() => handleAddToCart(product, idx)} radius="full" className="w-full bg-[#222] text-white font-bold group-hover:bg-[#dfff00] group-hover:text-black transition-colors duration-200 cursor-pointer focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#111]">
                    Add to Cart
                  </Button>
                </div>

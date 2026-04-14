@@ -2,44 +2,22 @@ import React, { useState, useEffect } from 'react';
 import { motion, useScroll } from 'framer-motion';
 import { Button } from "@heroui/react";
 import { Link as RouterLink } from "react-router-dom";
-
-export const slugify = (text) => text ? text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '') : '';
+import { useScrollSpy, slugify } from './useScrollSpy';
 
 export default function Privacy() {
   const { scrollYProgress } = useScroll();
-  const [activeSection, setActiveSection] = useState("");
 
   const sections = [
     "Information We Collect",
     "How We Use Your Data",
+    "Data Storage and Security",
     "Data Sharing",
-    "End-to-End Encryption",
     "Privacy Zones",
     "Your Rights & Controls",
     "Contact Us"
   ];
 
-  useEffect(() => {
-    const handleScroll = () => {
-      let current = "";
-      for (const heading of sections) {
-        const el = document.getElementById(slugify(heading));
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          // Threshold 250px below the fixed navbar
-          if (rect.top <= 300) {
-            current = slugify(heading);
-          }
-        }
-      }
-      if (current === "" && sections.length > 0) current = slugify(sections[0]);
-      setActiveSection(current);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  const activeSection = useScrollSpy(sections, 300);
 
   const fadeInUp = {
     hidden: { opacity: 0, y: 30 },
@@ -48,9 +26,6 @@ export default function Privacy() {
 
   return (
     <div className="relative px-4 md:px-6 pb-20 md:pb-32 pt-10 md:pt-16 font-['Poppins'] min-h-[80vh]">
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
-      `}</style>
       
       {/* Reading Progress Bar */}
       <motion.div 
@@ -118,8 +93,8 @@ export default function Privacy() {
               <p>We collect information you provide directly to us when creating an account, pairing a smartwatch, or logging a workout. This includes:</p>
               <ul className="list-disc list-outside space-y-3 ml-4 mt-4 bg-[#111] p-6 rounded-3xl border border-[#222]">
                 <li><strong className="text-white font-bold">Account Data:</strong> Name, email address, age, gender, and profile picture.</li>
-                <li><strong className="text-white font-bold">Biometric Data:</strong> Heart rate, VO2 Max, stride length, and sleep metrics synced from your devices.</li>
-                <li><strong className="text-white font-bold">Geolocation Data:</strong> GPS routes, elevation, and speed tracked during your runs.</li>
+                <li><strong className="text-white font-bold">Health & Biometric Data:</strong> We access health data through integrations with services like Apple Health and Google Health Connect, as well as directly from your paired devices. This includes heart rate, VO2 Max, stride length, and sleep metrics.</li>
+                <li><strong className="text-white font-bold">Location Data:</strong> When you record an activity, we collect precise GPS data, including your route, elevation, and speed, to map your run and calculate performance metrics. This collection only happens when you are actively recording a workout.</li>
               </ul>
             </div>
 
@@ -130,12 +105,12 @@ export default function Privacy() {
 
             <div id={slugify(sections[2])} className="scroll-mt-32">
               <h2 className="text-2xl md:text-3xl font-black text-white mb-4 md:mb-6 tracking-tight border-t border-white/10 pt-8 md:pt-12">{sections[2]}</h2>
-              <p>We strictly do not sell your personal or biometric data to third-party advertisers. We may share anonymized, aggregated data with sports research institutions to advance the science of endurance training, but this data cannot be linked back to you.</p>
+              <p>Your data is stored securely on Google's Firebase platform, utilizing Firestore for database management. All sensitive health and geolocation data is encrypted in transit and at rest using industry-standard AES-256 encryption. Our engineering team utilizes secure cloud functions and database rules to ensure your data is shielded from unauthorized access.</p>
             </div>
 
             <div id={slugify(sections[3])} className="scroll-mt-32">
               <h2 className="text-2xl md:text-3xl font-black text-white mb-4 md:mb-6 tracking-tight border-t border-white/10 pt-8 md:pt-12">{sections[3]}</h2>
-              <p>All sensitive health and geolocation data is encrypted in transit and at rest using AES-256 encryption. Our engineering team utilizes secure enclaves to ensure your data is shielded from unauthorized access.</p>
+              <p>We want to be unequivocally clear: <strong className="text-white">we do not and will not sell your personal or biometric data to third-party advertisers.</strong> Your privacy is not for sale. We may share anonymized, aggregated data with sports research institutions to advance the science of endurance training, but this data cannot be linked back to you individually.</p>
             </div>
 
             <div id={slugify(sections[4])} className="scroll-mt-32">

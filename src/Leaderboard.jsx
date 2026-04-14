@@ -2,8 +2,16 @@ import React, { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Card, Avatar, Button } from "@heroui/react";
 import { Link as RouterLink } from "react-router-dom";
+import { usePageMeta } from './usePageMeta';
 
 export default function Leaderboard() {
+  usePageMeta(
+    "Leaderboard | RUVO — Global Running Rankings",
+    "Compete on the RUVO global leaderboard. See weekly and all-time rankings across distance, speed, and challenges.",
+    "/leaderboard",
+    {"@context":"https://schema.org","@type":"WebPage","url":"https://ruvo.app/leaderboard","name":"Leaderboard | RUVO — Global Running Rankings","isPartOf":{"@id":"https://ruvo.app/#website"},"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://ruvo.app/"},{"@type":"ListItem","position":2,"name":"Leaderboard","item":"https://ruvo.app/leaderboard"}]}}
+  );
+
   const [category, setCategory] = useState("Global");
   const [timeframe, setTimeframe] = useState("This Month");
 
@@ -81,9 +89,6 @@ export default function Leaderboard() {
 
   return (
     <div className="relative px-6 pb-32 pt-16 overflow-hidden font-['Poppins'] min-h-[80vh]">
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
-      `}</style>
       
       {/* Background Glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-[#dfff00]/5 blur-[120px] rounded-full pointer-events-none"></div>

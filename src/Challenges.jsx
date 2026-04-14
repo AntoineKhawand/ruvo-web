@@ -2,8 +2,16 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Card, Button, Chip, Avatar, AvatarGroup, Progress, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from "@heroui/react";
 import { Link as RouterLink } from "react-router-dom";
+import { usePageMeta } from './usePageMeta';
 
 export default function Challenges() {
+  usePageMeta(
+    "Challenges | RUVO — Running Challenges & Community Events",
+    "Join global running challenges on RUVO. Compete, earn bonus XP, and push your limits.",
+    "/challenges",
+    {"@context":"https://schema.org","@type":"WebPage","url":"https://ruvo.app/challenges","name":"Challenges | RUVO — Running Challenges & Community Events","isPartOf":{"@id":"https://ruvo.app/#website"},"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://ruvo.app/"},{"@type":"ListItem","position":2,"name":"Challenges","item":"https://ruvo.app/challenges"}]}}
+  );
+
   const [selectedRegion, setSelectedRegion] = useState("All Regions");
 
   const fadeInUp = {
@@ -99,9 +107,6 @@ export default function Challenges() {
 
   return (
     <div className="relative px-6 pb-24 pt-16 overflow-hidden font-['Poppins'] min-h-[80vh]">
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
-      `}</style>
       
       {/* Background Glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-[#dfff00]/5 blur-[120px] rounded-full pointer-events-none"></div>

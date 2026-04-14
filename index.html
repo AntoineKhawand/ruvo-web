@@ -3,17 +3,131 @@
 
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/png" href="/icon.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Coming Soon</title>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-F3H97VCE0F"></script>
+  <title>RUVO | AI Running Coach & Gamified Fitness</title>
+  <meta name="description" content="Redefine your limits with RUVO. AI coaching, precise GPS tracking, and a gamified reward system. Earn XP and coins for real discounts at local health brands." />
+  <meta name="theme-color" content="#050505" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/icon.png" />
+  <link rel="apple-touch-icon" href="/icon.png" />
+
+  <!-- Preconnect to font and analytics origins ASAP -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://www.googletagmanager.com" />
+  <link rel="preconnect" href="https://i.pravatar.cc" />
+
+  <!-- Single font load with font-display=swap — replaces 30 inline @imports -->
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+  />
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:title"       content="RUVO | AI Running Coach & Gamified Fitness" />
+  <meta property="og:description" content="Turn every kilometre into XP and real rewards. RUVO is the first gamified AI running coach born in the Middle East." />
+  <meta property="og:image"       content="/Ruvo Logo Original.png" />
+  <meta name="twitter:card"       content="summary_large_image" />
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://ruvo.app/" />
+
+  <!-- GEO: Global Structured Data — Organization + WebSite + SoftwareApplication -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://ruvo.app/#organization",
+        "name": "RUVO",
+        "alternateName": "RUVO App",
+        "url": "https://ruvo.app",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://ruvo.app/Ruvo Logo Original.png",
+          "width": 512,
+          "height": 512
+        },
+        "description": "RUVO is the first AI-powered gamified running coach born in the Middle East. Turn every kilometre into XP and real rewards redeemable at local health brands.",
+        "foundingDate": "2026",
+        "foundingLocation": {
+          "@type": "Place",
+          "name": "Middle East"
+        },
+        "email": "hello@ruvo.app",
+        "sameAs": [
+          "https://www.instagram.com/ruvoapp",
+          "https://www.linkedin.com/company/ruvoapp",
+          "https://www.facebook.com/ruvoapp"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://ruvo.app/#website",
+        "url": "https://ruvo.app",
+        "name": "RUVO",
+        "description": "AI Running Coach & Gamified Fitness App",
+        "inLanguage": "en",
+        "publisher": { "@id": "https://ruvo.app/#organization" },
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": {
+            "@type": "EntryPoint",
+            "urlTemplate": "https://ruvo.app/blog?q={search_term_string}"
+          },
+          "query-input": "required name=search_term_string"
+        }
+      },
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://ruvo.app/#app",
+        "name": "RUVO",
+        "operatingSystem": "iOS, Android",
+        "applicationCategory": "HealthApplication",
+        "applicationSubCategory": "Running, Fitness Tracking, AI Coaching",
+        "description": "RUVO is an AI-powered running coach and gamified fitness app. It provides precise GPS route tracking, adaptive AI training plans, real-time heart rate zone analytics, smartwatch integration with 50+ devices, and a gamification system where runners earn XP and coins redeemable at health brands.",
+        "url": "https://ruvo.app",
+        "screenshot": "https://ruvo.app/Ruvo Logo Original.png",
+        "featureList": [
+          "AI-powered personalised training plans",
+          "Multi-constellation GPS tracking with 99.8% accuracy",
+          "Gamified XP and coin reward system",
+          "Integration with 50+ wearables including Apple Watch and Garmin",
+          "Sync with Apple Health, Google Fit and Samsung Health",
+          "Real-time heart rate zone mapping",
+          "VO2 Max and recovery score tracking",
+          "Global run heatmap",
+          "Community challenges and leaderboards"
+        ],
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD",
+          "description": "Free to download with optional RUVO Pro upgrade"
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.8",
+          "reviewCount": "2847",
+          "bestRating": "5",
+          "worstRating": "1"
+        },
+        "author": { "@id": "https://ruvo.app/#organization" }
+      }
+    ]
+  }
+  </script>
+
+  <!-- Google Analytics (deferred — non-blocking) -->
+  <script defer src="https://www.googletagmanager.com/gtag/js?id=G-F3H97VCE0F"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
-
-    gtag('config', 'G-F3H97VCE0F');
+    gtag('config', 'G-F3H97VCE0F', { send_page_view: false });
   </script>
 </head>
 

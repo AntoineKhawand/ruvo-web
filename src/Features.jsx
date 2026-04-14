@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Card, Chip, Button, Avatar, AvatarGroup } from "@heroui/react";
 import { Link as RouterLink } from "react-router-dom";
+import { usePageMeta } from './usePageMeta';
 
 function FeatureFaqItem({ faq }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -39,6 +40,12 @@ function FeatureFaqItem({ faq }) {
 }
 
 export default function Features() {
+  usePageMeta(
+    'Features | RUVO — AI Coaching, GPS Tracking & Gamified Rewards',
+    'Explore every RUVO feature: AI-powered training plans, 99.8% accurate GPS tracking, smartwatch integration with 50+ devices, XP reward system, and advanced analytics.',
+    '/features',
+    { "@context": "https://schema.org", "@type": "WebPage", "url": "https://ruvo.app/features", "name": "Features | RUVO", "isPartOf": { "@id": "https://ruvo.app/#website" }, "breadcrumb": { "@type": "BreadcrumbList", "itemListElement": [{ "@type": "ListItem", "position": 1, "name": "Home", "item": "https://ruvo.app/" }, { "@type": "ListItem", "position": 2, "name": "Features", "item": "https://ruvo.app/features" }] } }
+  );
   const [activeTab, setActiveTab] = useState(0);
 
   const fadeInUp = {
@@ -59,15 +66,17 @@ export default function Features() {
   ];
 
   const comparisonFeatures = [
-    { name: "Multi-constellation GPS Tracking", free: true, pro: true },
-    { name: "Basic Pace & Distance Analytics", free: true, pro: true },
+    { name: "GPS Run Tracking & History", free: true, pro: true },
+    { name: "Apple Health / Google Fit Sync", free: true, pro: true },
     { name: "Global Community & Leaderboards", free: true, pro: true },
-    { name: "Third-party Device Sync (Apple, Garmin)", free: true, pro: true },
-    { name: "AI Smart Coaching", free: false, pro: true },
-    { name: "Advanced Biometrics (VO2 Max)", free: false, pro: true },
-    { name: "Custom AI Training Plans", free: false, pro: true },
-    { name: "Live Telemetry Sharing", free: true, pro: true },
-    { name: "Gear Wear Tracking", free: true, pro: true },
+    { name: "Earn Ruvo Coins & Rewards Store", free: true, pro: true },
+    { name: "Achievements & Gear Mileage Tracker", free: true, pro: true },
+    { name: "2x Coin Multiplier", free: false, pro: true },
+    { name: "Oura Ring & Whoop Integration", free: false, pro: true },
+    { name: "Elite Analytics & HR Zones", free: false, pro: true },
+    { name: "AI Coach Chat (24/7)", free: false, pro: true },
+    { name: "Dynamic Plan Generation", free: false, pro: true },
+    { name: "Premium Visuals & No Banners", free: false, pro: true },
   ];
 
   const integrations = [
@@ -82,17 +91,14 @@ export default function Features() {
   ];
 
   const faqs = [
-    { q: "Do I need a smartwatch to use RUVO?", a: "No, you can use your phone's native GPS to track runs perfectly. However, connecting a smartwatch unlocks advanced biometrics like live heart rate and VO2 max." },
+    { q: "Do I need a smartwatch to use RUVO?", a: "No, you can use your phone's native GPS to track runs perfectly. However, connecting a smartwatch or Oura/Whoop unlocks advanced biometrics for Elite Analytics." },
     { q: "Can I cancel my Elite subscription anytime?", a: "Yes, you can easily cancel or pause your Elite tier at any moment directly from your account settings with no hidden fees." },
-    { q: "How accurate is the AI recovery analysis?", a: "Our AI model uses your heart rate variability (HRV), sleep stages, and past performance data to provide highly accurate recovery scores, designed alongside clinical sports scientists." },
-    { q: "Can I export my data to other platforms?", a: "Absolutely. RUVO supports automatic background syncing and manual exports to TrainingPeaks, Apple Health, and Google Fit." },
+    { q: "How does the 2x Coin Multiplier work?", a: "Pro users earn double the amount of Ruvo Coins for every kilometer logged, allowing you to redeem real-world rewards twice as fast." },
+    { q: "How accurate is the AI Coach?", a: "Our AI model reads your Whoop/Oura recovery data, resting heart rate, and past 30 days of performance to provide highly accurate, contextual training plans." },
   ];
 
   return (
     <div className="relative px-6 pb-0 pt-12 overflow-hidden font-['Poppins']">
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
-      `}</style>
       {/* Background Glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[#dfff00]/5 blur-[120px] rounded-full pointer-events-none"></div>
 
@@ -107,7 +113,7 @@ export default function Features() {
             Engineered for <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-[#dfff00] to-lime-500">Performance.</span>
           </h1>
           <p className="text-gray-400 text-lg leading-relaxed">
-            Discover the tools that power world-class athletes. From dynamic AI coaching to sub-meter GPS precision, every feature is built to help you shatter your limits.
+            Discover the comprehensive toolset built for every runner. From core tracking and gamified rewards to our 24/7 AI Coach and Elite Analytics, every feature is designed to help you shatter your limits.
           </p>
         </motion.div>
 
@@ -121,16 +127,16 @@ export default function Features() {
                 <div className="w-14 h-14 bg-[#222] rounded-2xl flex items-center justify-center mb-8 border border-white/5 group-hover:bg-[#dfff00] transition-colors duration-500 shadow-lg">
                     <svg className="w-7 h-7 text-[#dfff00] group-hover:text-black transition-colors duration-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
                 </div>
-                <h3 className="text-3xl font-bold text-white mb-4 tracking-tight">AI Smart Coaching</h3>
-                <p className="text-gray-400 leading-relaxed mb-10 text-lg">Our proprietary AI adapts to your biometric data in real-time, dynamically adjusting your training schedule to maximize gains and prevent injury.</p>
+                <h3 className="text-3xl font-bold text-white mb-4 tracking-tight">The AI Running Coach</h3>
+                <p className="text-gray-400 leading-relaxed mb-10 text-lg">Your personal, localized expert. Powered by advanced AI, get 24/7 intelligent coaching that reads your Whoop/Oura recovery data to generate dynamic workout schedules based on your goals.</p>
                 
                 <div className="mt-auto bg-black/50 rounded-2xl p-5 border border-white/5">
                     <div className="flex justify-between items-center mb-3">
-                        <span className="text-xs text-gray-500 font-bold uppercase tracking-widest">Recovery Status</span>
-                        <span className="text-xs text-[#dfff00] font-black uppercase tracking-widest">Optimal</span>
+                        <span className="text-xs text-gray-500 font-bold uppercase tracking-widest">Biometric Context</span>
+                        <span className="text-xs text-[#dfff00] font-black uppercase tracking-widest">Synced</span>
                     </div>
                     <div className="w-full bg-[#222] h-2.5 rounded-full overflow-hidden">
-                        <div className="bg-gradient-to-r from-[#dfff00] to-lime-500 h-full w-[85%] rounded-full shadow-[0_0_10px_rgba(223,255,0,0.5)]"></div>
+                        <div className="bg-gradient-to-r from-[#dfff00] to-lime-500 h-full w-[100%] rounded-full shadow-[0_0_10px_rgba(223,255,0,0.5)]"></div>
                     </div>
                 </div>
               </Card>
@@ -142,14 +148,14 @@ export default function Features() {
                 <div className="absolute -right-20 -top-20 w-64 h-64 bg-blue-500/10 blur-[70px] rounded-full group-hover:bg-blue-500/20 transition-all duration-700 pointer-events-none"></div>
                 
                 <div className="w-14 h-14 bg-[#222] rounded-2xl flex items-center justify-center mb-8 border border-white/5 group-hover:bg-blue-500 transition-colors duration-500 shadow-lg">
-                    <svg className="w-7 h-7 text-blue-500 group-hover:text-white transition-colors duration-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" /></svg>
+                    <svg className="w-7 h-7 text-blue-500 group-hover:text-white transition-colors duration-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                 </div>
-                <h3 className="text-3xl font-bold text-white mb-4 tracking-tight">Precision Routing</h3>
-                <p className="text-gray-400 leading-relaxed mb-10 text-lg">Multi-constellation GPS support combined with elevation mapping gives you the most accurate route data possible, even in dense urban environments.</p>
+                <h3 className="text-3xl font-bold text-white mb-4 tracking-tight">Economy & Rewards Store</h3>
+                <p className="text-gray-400 leading-relaxed mb-10 text-lg">Run to earn. Earn to gear up. Generate Ruvo Coins for every kilometer you run and redeem them via digital QR codes at partner stores. Upgrade to PRO for a 2x Multiplier.</p>
                 
                 <div className="mt-auto">
                     <div className="flex flex-wrap gap-3">
-                        {['GPS', 'GLONASS', 'GALILEO'].map(sys => (
+                        {['Nike', 'Mike Sport', 'Beirut Marathon'].map(sys => (
                             <span key={sys} className="px-4 py-2 bg-white/5 border border-white/10 rounded-full text-[11px] font-bold text-gray-400 tracking-widest">{sys}</span>
                         ))}
                     </div>
@@ -161,9 +167,9 @@ export default function Features() {
         {/* Bottom Feature Highlights (3 Cols) */}
         <motion.div variants={staggerContainer} initial="hidden" animate="visible" className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
             {[
-                { title: "Advanced Biometrics", desc: "Sync with heart rate monitors and power meters for deep physiological insights.", icon: "M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z", color: "text-red-500", hoverBorder: "hover:border-red-500/40" },
-                { title: "Gear Tracking", desc: "Automatically track mileage on your shoes and get notified when it's time to replace them.", icon: "M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4", color: "text-teal-400", hoverBorder: "hover:border-teal-400/40" },
-                { title: "Real-World Rewards", desc: "Every run earns you XP and Coins. Cash them out for discounts at Nike, Decathlon, and partner gyms.", icon: "M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z", color: "text-yellow-400", hoverBorder: "hover:border-yellow-400/40" }
+                { title: "Core Tracking & Health", desc: "Robust GPS tracking, Apple Health/Google Fit sync, and PRO-exclusive Elite Analytics with Oura & Whoop integration for deep HR Zone mapping.", icon: "M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z", color: "text-red-500", hoverBorder: "hover:border-red-500/40" },
+                { title: "Community & Social", desc: "Running is better together. Scroll your community feed, find friends, and join local running clubs to track group leaderboards and organize runs.", icon: "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z", color: "text-blue-400", hoverBorder: "hover:border-blue-400/40" },
+                { title: "Gamification & Progression", desc: "Unlock dynamic animated badges, ignite your global streak counters, and automatically track the mileage on your specific running shoes.", icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z", color: "text-green-400", hoverBorder: "hover:border-green-400/40" }
             ].map((item, idx) => (
                 <motion.div key={idx} variants={fadeInUp} className="h-full">
                     <Card className={`bg-[#111] border border-[#222] p-8 h-full rounded-3xl ${item.hoverBorder} transition-colors duration-500 group flex flex-col`}>
@@ -189,159 +195,8 @@ export default function Features() {
             </div>
           </div>
           <h2 className="text-2xl md:text-4xl font-light text-gray-300 italic leading-tight">
-            "The AI coaching helped me prep for my ultra-marathons, but cashing out my XP for new gear at Decathlon was the real game changer. It's literally an app that pays you to run."
+          "The AI coach dynamically adjusted my plan when my Whoop recovery was low, saving me from injury. Plus, the 2x coin multiplier let me grab new Nike gear twice as fast."
           </h2>
-        </motion.div>
-
-        {/* Interactive Feature Showcase */}
-        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="py-24 border-t border-white/10">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tight mb-4">See It In <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#dfff00] to-lime-500">Action.</span></h2>
-            <p className="text-gray-400 text-lg">Select a feature below to see how RUVO analyzes your performance.</p>
-          </div>
-          
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <div className="flex flex-col gap-4">
-              {showcaseTabs.map((tab, idx) => (
-                <button 
-                  key={tab.id}
-                  onClick={() => setActiveTab(idx)}
-                  className={`text-left p-6 rounded-3xl border transition-all duration-300 ${activeTab === idx ? 'bg-white/10 border-[#dfff00]/50 shadow-[0_0_30px_rgba(223,255,0,0.1)]' : 'bg-[#111] border-[#222] hover:bg-white/5'}`}
-                >
-                  <h3 className={`text-xl font-bold mb-2 transition-colors ${activeTab === idx ? 'text-[#dfff00]' : 'text-white'}`}>{tab.title}</h3>
-                  <p className="text-sm text-gray-400 leading-relaxed">{tab.desc}</p>
-                </button>
-              ))}
-            </div>
-            
-            {/* Abstract Phone Mockup */}
-            <div className="relative w-full max-w-[320px] h-[650px] mx-auto bg-black border-[8px] border-[#222] rounded-[3rem] shadow-2xl overflow-hidden flex flex-col">
-              {/* Phone Notch */}
-              <div className="absolute top-0 inset-x-0 h-6 bg-[#222] rounded-b-3xl w-40 mx-auto z-20"></div>
-              
-              <div className="p-6 pt-16 flex-grow flex flex-col relative z-10 bg-gradient-to-b from-[#111] to-black">
-                <AnimatePresence mode="wait">
-                  <motion.div 
-                    key={activeTab}
-                    initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                    transition={{ duration: 0.3 }}
-                    className="flex flex-col gap-4 h-full"
-                  >
-                    {activeTab === 0 && (
-                      <>
-                        {/* Pacing Mockup */}
-                        <div className="w-12 h-12 bg-[#dfff00]/20 rounded-full flex items-center justify-center mb-2">
-                          <div className="w-6 h-6 bg-[#dfff00] rounded-full animate-pulse"></div>
-                        </div>
-                        <h4 className="text-white font-bold text-2xl tracking-tight">{showcaseTabs[activeTab].title}</h4>
-                        
-                        <div className="bg-[#222] rounded-2xl p-4 mt-4 shadow-inner">
-                          <div className="h-2 w-1/3 bg-gray-600 rounded-full mb-4"></div>
-                          <div className="h-16 w-full bg-gradient-to-r from-[#dfff00] to-lime-500 rounded-xl mb-3 opacity-90"></div>
-                          <div className="flex gap-2">
-                            <div className="h-8 flex-1 bg-gray-700 rounded-lg"></div>
-                            <div className="h-8 flex-1 bg-gray-700 rounded-lg"></div>
-                          </div>
-                        </div>
-                        
-                        <div className="mt-auto space-y-3">
-                          <div className="h-12 w-full bg-[#333] rounded-xl flex items-center px-4 gap-3">
-                            <div className="w-6 h-6 rounded-full bg-[#dfff00]"></div>
-                            <div className="h-2 w-1/2 bg-gray-500 rounded-full"></div>
-                          </div>
-                          <div className="h-12 w-full bg-[#333] rounded-xl flex items-center px-4 gap-3">
-                            <div className="w-6 h-6 rounded-full bg-[#dfff00]/40"></div>
-                            <div className="h-2 w-1/3 bg-gray-500 rounded-full"></div>
-                          </div>
-                        </div>
-                      </>
-                    )}
-                    {activeTab === 1 && (
-                      <>
-                        {/* Recovery Mockup */}
-                        <div className="w-12 h-12 bg-blue-500/20 rounded-full flex items-center justify-center mb-2">
-                          <div className="w-6 h-6 bg-blue-500 rounded-full animate-pulse"></div>
-                        </div>
-                        <h4 className="text-white font-bold text-2xl tracking-tight">{showcaseTabs[activeTab].title}</h4>
-                        
-                        <div className="flex-1 flex flex-col items-center justify-center mt-4 border border-[#333] rounded-2xl bg-[#1a1a1a]">
-                          <div className="relative w-32 h-32 rounded-full border-[6px] border-[#222] border-t-blue-500 border-r-blue-500 animate-[spin_3s_linear_infinite] flex items-center justify-center mb-4 shadow-[0_0_20px_rgba(59,130,246,0.3)]">
-                            <div className="absolute inset-0 w-full h-full rounded-full border-[6px] border-transparent border-b-blue-400 animate-[spin_2s_linear_infinite_reverse]"></div>
-                            <div className="font-black text-3xl text-white tracking-tighter absolute rotate-0 animate-none">94%</div>
-                          </div>
-                          <span className="text-xs font-bold text-blue-500 uppercase tracking-widest">Fully Recovered</span>
-                        </div>
-                      </>
-                    )}
-                    {activeTab === 2 && (
-                      <>
-                        {/* Rewards Mockup */}
-                        <div className="w-12 h-12 bg-yellow-500/20 rounded-full flex items-center justify-center mb-2 shadow-[0_0_15px_rgba(234,179,8,0.3)]">
-                          <svg className="w-6 h-6 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                        </div>
-                        <h4 className="text-white font-bold text-2xl tracking-tight">{showcaseTabs[activeTab].title}</h4>
-                        
-                        <div className="mt-6 space-y-4">
-                            <div className="flex justify-between items-center bg-[#222] border border-yellow-500/30 shadow-[0_0_15px_rgba(234,179,8,0.15)] p-4 rounded-xl hover:bg-[#2a2a2a] transition-colors cursor-pointer">
-                                <div>
-                                  <span className="block text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-1">Nike Lebanon</span>
-                                  <span className="block text-lg font-black text-white leading-none">-20% Discount</span>
-                                </div>
-                                <span className="bg-yellow-500 text-black text-xs font-black px-3 py-1.5 rounded-full">500 Coins</span>
-                            </div>
-                            <div className="flex justify-between items-center bg-[#222] border border-white/5 p-4 rounded-xl hover:bg-[#2a2a2a] transition-colors cursor-pointer">
-                                <div>
-                                  <span className="block text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-1">Decathlon</span>
-                                  <span className="block text-lg font-black text-white leading-none">$50 Voucher</span>
-                                </div>
-                                <span className="bg-yellow-500 text-black text-xs font-black px-3 py-1.5 rounded-full">1200 Coins</span>
-                            </div>
-                            <div className="flex justify-between items-center bg-[#222] border border-white/5 p-4 rounded-xl hover:bg-[#2a2a2a] transition-colors cursor-pointer">
-                                <div>
-                                  <span className="block text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-1">Lebanon Trail</span>
-                                  <span className="block text-lg font-black text-white leading-none">Free Entry</span>
-                                </div>
-                                <span className="bg-yellow-500 text-black text-xs font-black px-3 py-1.5 rounded-full">2500 Coins</span>
-                            </div>
-                        </div>
-                      </>
-                    )}
-                    {activeTab === 3 && (
-                      <>
-                        {/* Analytics Mockup */}
-                        <div className="w-12 h-12 bg-red-500/20 rounded-full flex items-center justify-center mb-2">
-                          <div className="w-6 h-6 bg-red-500 rounded-full animate-pulse"></div>
-                        </div>
-                        <h4 className="text-white font-bold text-2xl tracking-tight">{showcaseTabs[activeTab].title}</h4>
-                        
-                        <div className="flex items-end justify-between gap-1 h-32 mt-6 border-b border-[#333] pb-2 px-2">
-                            <div className="w-full bg-red-500/30 rounded-t-sm h-[30%]"></div>
-                            <div className="w-full bg-red-500/50 rounded-t-sm h-[50%] hover:bg-red-500 transition-colors"></div>
-                            <div className="w-full bg-red-500/70 rounded-t-sm h-[75%] hover:bg-red-500 transition-colors"></div>
-                            <div className="w-full bg-red-500 rounded-t-sm h-[100%] shadow-[0_0_15px_rgba(239,68,68,0.5)]"></div>
-                            <div className="w-full bg-red-500/60 rounded-t-sm h-[65%] hover:bg-red-500 transition-colors"></div>
-                            <div className="w-full bg-red-500/40 rounded-t-sm h-[45%] hover:bg-red-500 transition-colors"></div>
-                        </div>
-                        
-                        <div className="mt-auto grid grid-cols-2 gap-3">
-                            <div className="bg-[#222] p-4 rounded-xl flex flex-col items-center justify-center text-center">
-                                <span className="text-2xl font-black text-white">58.2</span>
-                                <span className="text-[10px] text-gray-500 font-bold uppercase tracking-widest mt-1">VO2 Max</span>
-                            </div>
-                            <div className="bg-[#222] p-4 rounded-xl flex flex-col items-center justify-center text-center">
-                                <span className="text-2xl font-black text-white">210</span>
-                                <span className="text-[10px] text-gray-500 font-bold uppercase tracking-widest mt-1">GCT (ms)</span>
-                            </div>
-                        </div>
-                      </>
-                    )}
-                  </motion.div>
-                </AnimatePresence>
-              </div>
-            </div>
-          </div>
         </motion.div>
 
         {/* Free vs. Elite Comparison Table */}
@@ -465,7 +320,7 @@ export default function Features() {
                   <Avatar src="https://i.pravatar.cc/150?u=a04258114e29026702d" />
                   <Avatar src="https://i.pravatar.cc/150?u=a04258114e29026708c" />
                 </AvatarGroup>
-                <Button radius="full" size="lg" className="bg-white text-black font-bold px-10 py-6 mt-4 hover:scale-105 transition-transform shadow-[0_0_30px_rgba(255,255,255,0.2)]">
+                <Button as={RouterLink} to="/waitlist" radius="full" size="lg" className="bg-white text-black font-bold px-10 py-6 mt-4 hover:scale-105 transition-transform shadow-[0_0_30px_rgba(255,255,255,0.2)]">
                   Download RUVO App
                 </Button>
               </div>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Card, Avatar, Button, Progress, Chip, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure, Input, Textarea, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from "@heroui/react";
+import { usePageMeta } from './usePageMeta';
 
 // --- STAR RATING COMPONENT ---
 const StarRating = ({ count = 5 }) => (
@@ -224,6 +225,13 @@ const initialReviewsData = [
 ];
 
 export default function Reviews() {
+  usePageMeta(
+    "Reviews | RUVO — What Runners Are Saying",
+    "Real reviews from RUVO runners worldwide. See how AI coaching and gamified rewards are changing how people run.",
+    "/reviews",
+    {"@context":"https://schema.org","@type":"WebPage","url":"https://ruvo.app/reviews","name":"Reviews | RUVO — What Runners Are Saying","isPartOf":{"@id":"https://ruvo.app/#website"},"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://ruvo.app/"},{"@type":"ListItem","position":2,"name":"Reviews","item":"https://ruvo.app/reviews"}]}}
+  );
+
   const [reviews, setReviews] = useState(() => {
     const saved = localStorage.getItem('ruvo_reviews_v6');
     if (saved) {
@@ -323,9 +331,6 @@ export default function Reviews() {
 
   return (
     <div className="relative px-6 pb-24 pt-12 overflow-hidden font-['Poppins']">
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
-      `}</style>
       {/* Background Glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[#dfff00]/5 blur-[120px] rounded-full pointer-events-none"></div>
 

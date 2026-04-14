@@ -112,9 +112,6 @@ export default function Support() {
 
   return (
     <div className="relative px-4 md:px-6 pb-16 md:pb-24 pt-8 md:pt-12 overflow-hidden font-['Poppins']">
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
-      `}</style>
       {/* Background Glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[#dfff00]/5 blur-[120px] rounded-full pointer-events-none"></div>
 

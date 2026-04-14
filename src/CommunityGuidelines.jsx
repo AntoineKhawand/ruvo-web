@@ -82,9 +82,6 @@ export default function CommunityGuidelines() {
 
   return (
     <div className="relative px-6 pb-24 pt-12 overflow-hidden font-['Poppins']">
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
-      `}</style>
       
       {/* Reading Progress Bar */}
       <motion.div 

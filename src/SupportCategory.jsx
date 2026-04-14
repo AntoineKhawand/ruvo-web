@@ -35,9 +35,6 @@ export default function SupportCategory() {
 
   return (
     <div className="relative px-6 pb-24 pt-12 overflow-hidden font-['Poppins'] min-h-[80vh]">
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
-      `}</style>
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[#dfff00]/5 blur-[120px] rounded-full pointer-events-none"></div>
 
       <div className="max-w-4xl mx-auto relative z-10">

@@ -2,8 +2,16 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Card, Button, Chip } from "@heroui/react";
 import { Link as RouterLink } from "react-router-dom";
+import { usePageMeta } from './usePageMeta';
 
 export default function Press() {
+  usePageMeta(
+    "Press | RUVO — Media Kit & News",
+    "RUVO press resources: brand assets, product screenshots, and contact details for media enquiries.",
+    "/press",
+    {"@context":"https://schema.org","@type":"WebPage","url":"https://ruvo.app/press","name":"Press | RUVO — Media Kit & News","isPartOf":{"@id":"https://ruvo.app/#website"},"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://ruvo.app/"},{"@type":"ListItem","position":2,"name":"Press","item":"https://ruvo.app/press"}]}}
+  );
+
   const fadeInUp = {
     hidden: { opacity: 0, y: 30 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } }
@@ -11,9 +19,6 @@ export default function Press() {
 
   return (
     <div className="relative px-4 md:px-6 pb-20 md:pb-32 pt-16 md:pt-24 overflow-hidden font-['Poppins'] min-h-[80vh] flex flex-col items-center">
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
-      `}</style>
       
       {/* Advanced Background Design */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,#dfff00_0%,transparent_30%)] opacity-5 pointer-events-none"></div>

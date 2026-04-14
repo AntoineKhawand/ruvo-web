@@ -16,9 +16,6 @@ export default function NotFound() {
 
   return (
     <div className="relative px-6 pb-24 pt-16 overflow-hidden font-['Poppins'] min-h-[80vh] flex flex-col items-center justify-center">
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
-      `}</style>
       
       {/* Abstract Grid Background */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:64px_64px] pointer-events-none [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_70%,transparent_100%)]"></div>

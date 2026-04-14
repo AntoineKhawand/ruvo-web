@@ -1,10 +1,140 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { Card, Button, Chip, Progress } from "@heroui/react";
+import { animate, createTimeline, utils } from 'animejs';
+import { Card, Button, Chip } from "@heroui/react";
 import { Link as RouterLink } from "react-router-dom";
+import { usePageMeta } from './usePageMeta';
+
+// --- ANIME.JS ANIMATED PROGRESS BAR ---
+// Fills from 0 → target on scroll-into-view, then pulses a glow
+function AnimatedProgressBar({ value, isComplete }) {
+  const trackRef = useRef(null);
+  const barRef   = useRef(null);
+  const done     = useRef(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !done.current) {
+          done.current = true;
+          const tl = createTimeline({ defaults: { easing: 'easeOutExpo' } });
+          tl.add(barRef.current, { width: [`0%`, `${value}%`], duration: 1100 })
+            .add(barRef.current, {
+              boxShadow: [
+                '0 0 0px rgba(234,179,8,0)',
+                '0 0 14px rgba(234,179,8,0.7)',
+                '0 0 0px rgba(234,179,8,0)',
+              ],
+              duration: 700,
+            }, '-=400');
+        }
+      },
+      { threshold: 0.6 }
+    );
+    if (trackRef.current) observer.observe(trackRef.current);
+    return () => observer.disconnect();
+  }, [value]);
+
+  return (
+    <div ref={trackRef} className="w-full h-1 bg-[#222] rounded-full overflow-visible relative">
+      <div
+        ref={barRef}
+        style={{ width: '0%' }}
+        className={`h-full rounded-full ${isComplete
+          ? 'bg-gradient-to-r from-yellow-500 to-yellow-300'
+          : 'bg-white/30'}`}
+      />
+    </div>
+  );
+}
+
+// --- ANIME.JS COIN PARTICLE BURST ---
+function createParticleBurst(e) {
+  const rect = e.currentTarget.getBoundingClientRect();
+  const cx = rect.left + rect.width  / 2;
+  const cy = rect.top  + rect.height / 2;
+
+  const particles = Array.from({ length: 18 }, (_, i) => {
+    const el = document.createElement('div');
+    const size = utils.random(5, 9);
+    el.style.cssText = `
+      position:fixed; width:${size}px; height:${size}px;
+      border-radius:50%; background:#EAB308;
+      left:${cx}px; top:${cy}px;
+      pointer-events:none; z-index:9999;
+      transform:translate(-50%,-50%);
+      box-shadow:0 0 8px rgba(234,179,8,0.9);
+    `;
+    document.body.appendChild(el);
+    return el;
+  });
+
+  animate(particles, {
+    translateX: () => utils.random(-80, 80),
+    translateY: () => utils.random(-100, 20),
+    scale:      [{ to: 1.4, duration: 80 }, { to: 0, duration: 520 }],
+    opacity:    [1, 0],
+    duration:   650,
+    delay:      utils.stagger(20),
+    easing:     'easeOutExpo',
+    onComplete: () => particles.forEach(p => p.remove()),
+  });
+}
 
 export default function Rewards() {
+  usePageMeta(
+    "Gamified Rewards | RUVO — Earn XP and Coins for Every Run",
+    "Earn XP and coins on every run. Redeem rewards for real discounts at local health brands and fitness stores.",
+    "/rewards",
+    {"@context":"https://schema.org","@type":"WebPage","url":"https://ruvo.app/rewards","name":"Gamified Rewards | RUVO — Earn XP and Coins for Every Run","isPartOf":{"@id":"https://ruvo.app/#website"},"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://ruvo.app/"},{"@type":"ListItem","position":2,"name":"Rewards","item":"https://ruvo.app/rewards"}]}}
+  );
+
   const [showAllRewards, setShowAllRewards] = React.useState(false);
+
+  // --- Coin orbital refs ---
+  const ring1Ref = useRef(null);
+  const ring2Ref = useRef(null);
+  const ring3Ref = useRef(null);
+
+  // Anime.js coin orbital system
+  useEffect(() => {
+    if (!ring1Ref.current) return;
+
+    // Inner dashed ring — slow clockwise
+    animate(ring1Ref.current, {
+      rotate: '360deg',
+      duration: 18000,
+      easing: 'linear',
+      loop: true,
+    });
+
+    // Middle ring — faster counter-clockwise with a satellite dot
+    animate(ring2Ref.current, {
+      rotate: '-360deg',
+      duration: 11000,
+      easing: 'linear',
+      loop: true,
+    });
+
+    // Outer ring — slowest, opposite direction
+    animate(ring3Ref.current, {
+      rotate: '360deg',
+      duration: 26000,
+      easing: 'linear',
+      loop: true,
+    });
+
+    // Satellite dots — pulse opacity & scale with stagger
+    const satellites = document.querySelectorAll('.coin-satellite');
+    animate(satellites, {
+      scale:   [1, 1.6, 1],
+      opacity: [0.5, 1, 0.5],
+      duration: 1800,
+      delay:   utils.stagger(500),
+      easing:  'easeInOutSine',
+      loop:    true,
+    });
+  }, []);
 
   const fadeInUp = {
     hidden: { opacity: 0, y: 30 },
@@ -31,9 +161,6 @@ export default function Rewards() {
 
   return (
     <div className="relative px-4 md:px-6 pb-16 md:pb-24 pt-8 md:pt-16 overflow-hidden font-['Poppins'] min-h-[80vh]">
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
-      `}</style>
       
       {/* Background Glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-yellow-500/10 blur-[120px] rounded-full pointer-events-none"></div>
@@ -63,11 +190,23 @@ export default function Rewards() {
                <div className="relative w-48 h-48 md:w-64 md:h-64 flex items-center justify-center group">
                  <div className="absolute inset-0 bg-yellow-500/20 blur-[60px] rounded-full group-hover:bg-yellow-500/30 transition-colors duration-700"></div>
                  
-                 {/* Animated Rings */}
-                 <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 20, ease: "linear" }} className="absolute w-[110%] h-[110%] border-2 border-dashed border-yellow-500/30 rounded-full"></motion.div>
-                 <motion.div animate={{ rotate: -360 }} transition={{ repeat: Infinity, duration: 15, ease: "linear" }} className="absolute w-[130%] h-[130%] border border-yellow-500/10 rounded-full flex items-center justify-center">
-                   <div className="w-3 h-3 bg-yellow-400 rounded-full absolute -top-1.5 shadow-[0_0_15px_rgba(250,204,21,0.8)]"></div>
-                 </motion.div>
+                 {/* Animated Orbital System — driven by Anime.js */}
+
+                 {/* Ring 1 — inner dashed, clockwise */}
+                 <div ref={ring1Ref} className="absolute w-[112%] h-[112%] border-2 border-dashed border-yellow-500/40 rounded-full">
+                   <div className="coin-satellite w-2.5 h-2.5 bg-yellow-400 rounded-full absolute -top-1 left-1/2 -translate-x-1/2 shadow-[0_0_10px_rgba(250,204,21,0.9)]" />
+                 </div>
+
+                 {/* Ring 2 — middle solid, counter-clockwise, larger satellite */}
+                 <div ref={ring2Ref} className="absolute w-[132%] h-[132%] border border-yellow-500/20 rounded-full">
+                   <div className="coin-satellite w-3 h-3 bg-yellow-300 rounded-full absolute -top-1.5 left-1/2 -translate-x-1/2 shadow-[0_0_14px_rgba(250,204,21,0.8)]" />
+                   <div className="coin-satellite w-2 h-2 bg-yellow-500 rounded-full absolute -bottom-1 left-1/2 -translate-x-1/2 shadow-[0_0_8px_rgba(250,204,21,0.6)]" />
+                 </div>
+
+                 {/* Ring 3 — outer faint, clockwise, slowest */}
+                 <div ref={ring3Ref} className="absolute w-[155%] h-[155%] border border-yellow-500/10 rounded-full border-dashed">
+                   <div className="coin-satellite w-2 h-2 bg-yellow-400/60 rounded-full absolute -top-1 left-1/2 -translate-x-1/2" />
+                 </div>
 
                  {/* 3D Coin Core */}
                  <div className="w-28 h-28 md:w-40 md:h-40 bg-gradient-to-br from-yellow-300 via-yellow-500 to-yellow-700 rounded-full flex items-center justify-center shadow-[inset_0_-10px_20px_rgba(0,0,0,0.4),0_10px_30px_rgba(234,179,8,0.3)] relative z-10 group-hover:scale-105 transition-transform duration-500">
@@ -197,13 +336,18 @@ export default function Rewards() {
                               {item.progress === 100 ? 'Available' : `${Math.floor(item.coins * (item.progress / 100))} / ${item.coins}`}
                             </span>
                           </div>
-                          <Progress value={item.progress} size="sm" classNames={{ indicator: item.progress === 100 ? "bg-gradient-to-r from-yellow-500 to-yellow-300 shadow-[0_0_10px_rgba(234,179,8,0.5)]" : "bg-white/20", track: "bg-[#111]" }} />
+                          {/* Anime.js animated progress bar */}
+                          <AnimatedProgressBar value={item.progress} isComplete={item.progress === 100} />
                         </div>
-                        
-                        {/* Hover View */}
+
+                        {/* Hover View — particle burst on click */}
                         <div className="absolute inset-0 flex items-center justify-center transform translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-in-out">
-                          <Button radius="full" size="sm" className="w-full bg-yellow-500 text-black font-bold tracking-wide shadow-[0_0_15px_rgba(234,179,8,0.4)] hover:bg-yellow-400 transition-colors h-10">
-                             Redeem Now
+                          <Button
+                            radius="full" size="sm"
+                            className="w-full bg-yellow-500 text-black font-bold tracking-wide shadow-[0_0_15px_rgba(234,179,8,0.4)] hover:bg-yellow-400 transition-colors h-10"
+                            onClick={createParticleBurst}
+                          >
+                            Redeem Now
                           </Button>
                         </div>
                       </div>

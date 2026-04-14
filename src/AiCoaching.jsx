@@ -2,46 +2,57 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Card, Button, Chip } from "@heroui/react";
 import { Link as RouterLink } from "react-router-dom";
+import { usePageMeta } from './usePageMeta';
 
 export default function AiCoaching() {
-  const [activePrompt, setActivePrompt] = useState(0);
+  usePageMeta(
+    'AI Smart Coaching | RUVO — Personalised Running Plans Powered by AI',
+    "RUVO's AI running coach analyses your fitness data, 5K time, and goals to build adaptive training plans for 5K, 10K, half marathon and beyond.",
+    '/ai-coaching',
+    { "@context": "https://schema.org", "@type": "WebPage", "url": "https://ruvo.app/ai-coaching", "name": "AI Smart Coaching | RUVO", "isPartOf": { "@id": "https://ruvo.app/#website" }, "breadcrumb": { "@type": "BreadcrumbList", "itemListElement": [{ "@type": "ListItem", "position": 1, "name": "Home", "item": "https://ruvo.app/" }, { "@type": "ListItem", "position": 2, "name": "AI Coaching", "item": "https://ruvo.app/ai-coaching" }] } }
+  );
   const [fiveKTime, setFiveKTime] = useState("22:30");
   const [predictedTime, setPredictedTime] = useState(null);
   const [isCalculating, setIsCalculating] = useState(false);
 
   const prompts = [
     {
-      user: "My HRV dropped and I only slept 4 hours.",
-      ai: "I noticed that. I've automatically adjusted today's 10k tempo run to an easy 30-minute Zone 2 recovery jog. Let's focus on resting up.",
-      tag: "Poor Sleep / Low HRV"
+      user: "Should I run today?",
+      ai: "I see your Oura Readiness Score dropped to 52% and you ran a heavy 10K yesterday. Take a rest day today, or limit yourself to a 20-minute Z1 recovery jog.",
+      tag: "Plan My Next Run"
     },
     {
-      user: "I felt amazing on yesterday's long run!",
-      ai: "Great work! You kept your heart rate strictly in Zone 2. Your aerobic engine is adapting perfectly. I'm bumping up your weekend long run distance by 10%.",
-      tag: "Feeling Great"
+      user: "I'm traveling and only have a hotel treadmill for the next 3 days.",
+      ai: "No problem. I've regenerated your training block to keep you on track for your race without skipping a beat using treadmill-optimized incline intervals.",
+      tag: "Adapt To Life"
     },
     {
-      user: "My left knee feels slightly stiff today.",
-      ai: "Thanks for logging that. I've swapped tomorrow's high-impact track session for a low-impact cycling cross-training day. Let's protect that knee.",
-      tag: "Injury Prevention"
+      user: "I am doing 8x400m track intervals in 1 hour. What should I eat right now?",
+      ai: "Based on your last 5K time, aim for 1:35 per 400m. For fuel, consume 30-50g of fast-digesting carbs right now—like a banana or energy gel—and sip water.",
+      tag: "Nutrition & Expertise"
     }
   ];
 
   const features = [
     {
-      title: "Predictive Pacing",
-      desc: "Get real-time audio cues during your race. The AI calculates exactly what pace you need to hold to hit your target finish time.",
+      title: "Absolute Contextual Awareness",
+      desc: "Zero guesswork. The AI reads your Whoop/Oura data (Sleep, HRV, Strain), recent 30-day mileage, and shoe wear before it answers a single question.",
       icon: "M13 10V3L4 14h7v7l9-11h-7z"
     },
     {
-      title: "Form Correction",
-      desc: "Using ground contact time and vertical oscillation data, RUVO detects form breakdown and provides actionable tips to fix it.",
-      icon: "M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+      title: "Dynamic Plan Generation",
+      desc: "Generic PDF plans fail when life happens. If you get sick or travel, simply tell the AI. It instantly rewrites your entire training block as rich, interactive UI cards.",
+      icon: "M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
     },
     {
-      title: "Injury Prevention",
-      desc: "By monitoring acute-to-chronic workload ratios, the AI spots early warning signs of overtraining before they become injuries.",
+      title: "Proactive Injury Prevention",
+      desc: "Over 70% of runners get injured yearly. By monitoring your Acute vs. Chronic Training Workload, the AI acts as a sports scientist to warn you before shin splints occur.",
       icon: "M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+    },
+    {
+      title: "24/7 On-Demand Expertise",
+      desc: "Hiring a real PT costs $100+/hr. Get unlimited access to elite-level sports science knowledge. Ask highly specific questions about nutrition, pacing, and recovery anytime.",
+      icon: "M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
     }
   ];
 
@@ -94,10 +105,7 @@ export default function AiCoaching() {
 
   return (
     <div className="relative px-6 pb-24 pt-16 overflow-hidden font-['Poppins'] min-h-[80vh]">
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
-      `}</style>
-      
+
       {/* Background Glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-[#dfff00]/5 blur-[120px] rounded-full pointer-events-none"></div>
 
@@ -112,7 +120,7 @@ export default function AiCoaching() {
             Meet Your New <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-[#dfff00] to-lime-500">Head Coach.</span>
           </h1>
           <p className="text-gray-400 text-lg md:text-xl leading-relaxed mx-auto max-w-2xl">
-            Go beyond generic templates. Our advanced AI engine analyzes your biometrics, fatigue levels, and performance history to build a dynamic training plan that adapts to you daily.
+            A world-class running coach in your pocket. Not just a chatbot, but a context-aware intelligence that actively reads your biometric data to guide your training.
           </p>
         </motion.div>
 
@@ -159,13 +167,13 @@ export default function AiCoaching() {
 
             <div className="md:w-1/2 relative z-10">
               <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tight text-white mb-6">
-                Always <span className="text-[#dfff00]">Listening.</span>
+                Premium <span className="text-[#dfff00]">Zero State.</span>
               </h2>
               <p className="text-gray-400 text-lg leading-relaxed mb-8">
-                RUVO's AI doesn't just give you a PDF to follow. It actively listens to your body through your wearable data, making micro-adjustments to your schedule to ensure you're always training optimally, never overtraining.
+                The AI Coach isn't just a blank chat box. It features a premium dashboard with Quick Actions that instantly generate performance reports, tailor workouts, or recommend specific stretches and hydration protocols based on your exact biometric state.
               </p>
               <div className="flex flex-wrap gap-3">
-                {['HRV Analysis', 'Sleep Quality', 'Workout Load', 'Readiness Score'].map((tag, i) => (
+                {['Analyze My Week', 'Plan My Next Run', 'Recover'].map((tag, i) => (
                   <Chip key={i} className="bg-white/5 border border-white/10 text-gray-300 text-xs font-bold uppercase tracking-widest px-3 py-4">{tag}</Chip>
                 ))}
               </div>
@@ -174,7 +182,7 @@ export default function AiCoaching() {
         </motion.div>
 
         {/* Feature Grid */}
-        <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-32">
+        <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-32">
           {features.map((feature, idx) => (
             <motion.div key={idx} variants={fadeInUp} className="h-full">
               <Card className="bg-[#111] border border-[#222] p-8 h-full rounded-[2rem] hover:border-[#dfff00]/30 transition-colors flex flex-col group relative overflow-hidden">

@@ -44,9 +44,6 @@ export default function SignUp() {
 
   return (
     <div className="relative px-6 pb-24 pt-16 overflow-hidden font-['Poppins'] min-h-[80vh] flex items-center justify-center">
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
-      `}</style>
       
       {/* Background Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-[#dfff00]/10 blur-[150px] rounded-full pointer-events-none"></div>
@@ -56,7 +53,7 @@ export default function SignUp() {
           <Card className="bg-[#0a0a0a] border border-[#222] rounded-[2.5rem] p-8 md:p-10 shadow-2xl">
             
             <div className="text-center mb-10">
-              <img src="/Ruvo Logo Original.png" alt="Ruvo Logo" className="h-16 mx-auto mb-6 drop-shadow-[0_0_20px_rgba(223,255,0,0.3)]" />
+              <img src="/Ruvo Logo Original.png" alt="Ruvo Logo" width="256" height="64" className="h-16 mx-auto mb-6 drop-shadow-[0_0_20px_rgba(223,255,0,0.3)]" />
               <h1 className="text-3xl font-black uppercase tracking-tight text-white mb-2">Create Account</h1>
               <p className="text-gray-400 text-sm">Join the community and start your first challenge.</p>
             </div>

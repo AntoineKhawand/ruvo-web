@@ -1,8 +1,16 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Button, Chip } from "@heroui/react";
+import { usePageMeta } from './usePageMeta';
 
 export default function Heatmap() {
+  usePageMeta(
+    "Global Heatmap | RUVO — See Where Runners Go",
+    "Explore the RUVO global run heatmap. Discover popular running routes contributed by millions of runners.",
+    "/heatmap",
+    {"@context":"https://schema.org","@type":"WebPage","url":"https://ruvo.app/heatmap","name":"Global Heatmap | RUVO — See Where Runners Go","isPartOf":{"@id":"https://ruvo.app/#website"},"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://ruvo.app/"},{"@type":"ListItem","position":2,"name":"Heatmap","item":"https://ruvo.app/heatmap"}]}}
+  );
+
   const [exploreMode, setExploreMode] = useState(false);
 
   const fadeInUp = {
@@ -12,9 +20,6 @@ export default function Heatmap() {
 
   return (
     <div className="relative px-6 pb-0 pt-16 overflow-hidden font-['Poppins'] min-h-screen flex flex-col">
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
-      `}</style>
       
       {/* Dynamic Interactive Outline Map */}
       <div className={`absolute inset-0 z-0 transition-opacity duration-1000 ${exploreMode ? 'opacity-100' : 'opacity-30'} pointer-events-auto`}>

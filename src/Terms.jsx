@@ -2,11 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { motion, useScroll } from 'framer-motion';
 import { Button } from "@heroui/react";
 
-export const slugify = (text) => text ? text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '') : '';
+import { useScrollSpy, slugify } from './useScrollSpy';
 
 export default function Terms() {
   const { scrollYProgress } = useScroll();
-  const [activeSection, setActiveSection] = useState("");
 
   const sections = [
     "Acceptance of Terms",
@@ -20,27 +19,7 @@ export default function Terms() {
     "Contact Information"
   ];
 
-  useEffect(() => {
-    const handleScroll = () => {
-      let current = "";
-      for (const heading of sections) {
-        const el = document.getElementById(slugify(heading));
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          // Threshold 300px below the fixed navbar
-          if (rect.top <= 300) {
-            current = slugify(heading);
-          }
-        }
-      }
-      if (current === "" && sections.length > 0) current = slugify(sections[0]);
-      setActiveSection(current);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  const activeSection = useScrollSpy(sections, 120);
 
   const fadeInUp = {
     hidden: { opacity: 0, y: 30 },
@@ -49,9 +28,6 @@ export default function Terms() {
 
   return (
     <div className="relative px-4 md:px-6 pb-20 md:pb-32 pt-10 md:pt-16 font-['Poppins'] min-h-[80vh]">
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
-      `}</style>
       
       {/* Reading Progress Bar */}
       <motion.div 
