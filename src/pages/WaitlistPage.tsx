@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { sendEmail } from "../emailService";
+import { joinWaitlist } from "../emailService";
 
 interface TimeLeft {
   days: number;
@@ -16,8 +16,6 @@ export default function WaitlistPage() {
   const [isMounted, setIsMounted] = useState(false);
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<FormStatus>("idle");
-  const emailRef = useRef<HTMLInputElement>(null);
-
   // Set your expected launch date here
   function calculateTimeLeft(): TimeLeft {
     const difference = +new Date("2026-06-01T00:00:00") - +new Date();
@@ -114,10 +112,7 @@ export default function WaitlistPage() {
                 if (status === "submitting") return;
                 setStatus("submitting");
                 try {
-                  await sendEmail(
-                    import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-                    { user_email: email, reply_to: email }
-                  );
+                  await joinWaitlist(email);
                   setStatus("success");
                   setEmail("");
                 } catch {
@@ -132,7 +127,6 @@ export default function WaitlistPage() {
                   </svg>
                 </div>
                 <input
-                  ref={emailRef}
                   type="email"
                   value={email}
                   onChange={(e) => { setEmail(e.target.value); if (status === "error") setStatus("idle"); }}

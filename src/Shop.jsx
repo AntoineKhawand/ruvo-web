@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Card, Button, Chip, Input } from "@heroui/react";
 import hoodieImg from './hooded-sweatshirt-black-perfect-autumn-generated-by-ai.jpg';
 import teeImg from './RUVO Elite Tech Tee.png';
-import { sendEmail } from './emailService';
+import { sendOrder } from './emailService';
 import { usePageMeta } from './usePageMeta';
 
 export default function Shop() {
@@ -86,25 +86,23 @@ ${orderDetails}
 
 Total: $${cartTotal}`;
 
-    const templateParams = {
-      from_name: formData.name,
-      reply_to: formData.email,
-      category: 'New Merchandise Order',
+    sendOrder({
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      address: formData.address,
+      city: formData.city,
+      zip: formData.zip,
       message: fullMessage,
-    };
-
-    sendEmail(
-      import.meta.env.VITE_EMAILJS_ORDER_TEMPLATE_ID,
-      templateParams
-    ).then(() => {
+    }).then(() => {
         setIsProcessing(false);
         setFormData({ name: '', email: '', phone: '', address: '', city: '', zip: '' });
         setCheckoutStep('success');
         setCart([]);
     }).catch((error) => {
-        console.error('EmailJS Error:', error);
+        console.error('Order error:', error);
         setIsProcessing(false);
-        alert("Failed to place order. Error: " + (error.text || error.message || "Please check console for details."));
+        alert("Failed to place order. Please try again.");
     });
   };
 

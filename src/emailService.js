@@ -1,12 +1,18 @@
-import emailjs from '@emailjs/browser';
-
-export const sendEmail = (templateId, templateParams) => {
-  const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-  const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
-
-  if (!serviceId || !templateId || !publicKey) {
-    return Promise.reject(new Error("EmailJS environment variables are not configured."));
+async function post(path, body) {
+  const res = await fetch(path, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+  });
+  if (!res.ok) {
+    const data = await res.json().catch(() => ({}));
+    throw new Error(data.error ?? 'Request failed');
   }
+  return res.json();
+}
 
-  return emailjs.send(serviceId, templateId, templateParams, publicKey);
-};
+/** Adds an email to the waitlist and sends a confirmation. */
+export const joinWaitlist = (email) => post('/api/waitlist', { email });
+
+/** Submits a shop order. */
+export const sendOrder = (orderData) => post('/api/order', orderData);
