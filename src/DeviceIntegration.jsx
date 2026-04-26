@@ -5,9 +5,9 @@ import { Link as RouterLink } from "react-router-dom";
 import { usePageMeta } from './usePageMeta';
 
 const integrationFaqs = [
-  { q: "Does continuous sync drain my smartwatch battery?", a: "Not at all. RUVO utilizes Bluetooth Low Energy (BLE) and bulk-data background transfers, which have a negligible impact on your device's battery life." },
-  { q: "Can I import my historical running data?", a: "Yes. Once you authorize a platform like Garmin Connect or Apple Health, you can opt to backfill up to 5 years of historical training data into your RUVO profile." },
-  { q: "What if my specific heart rate monitor isn't listed?", a: "If your heart rate monitor broadcasts over standard Bluetooth Smart (BLE) or ANT+ (on supported Android devices), it will natively pair with the RUVO mobile app regardless of the brand." }
+  { q: "Does continuous sync drain my smartwatch battery?", a: "Not at all. RUVO receives data after your workout is saved via Apple Health or Health Connect, meaning no direct background connection to your watch is needed." },
+  { q: "Can I import my historical running data?", a: "Yes. Once you authorize Apple Health or Google Health Connect, RUVO can sync your historical training data directly from those hubs into your RUVO profile." },
+  { q: "What if my specific heart rate monitor isn't listed?", a: "If your heart rate monitor broadcasts over standard Bluetooth Smart (BLE), it will natively pair with the RUVO mobile app during your run, regardless of the brand." }
 ];
 
 function DeviceFaqItem({ faq }) {
@@ -33,10 +33,10 @@ function DeviceFaqItem({ faq }) {
 
 export default function DeviceIntegration() {
   usePageMeta(
-    "Device Integration | RUVO — Connect 50+ Wearables",
-    "RUVO integrates with Apple Watch, Garmin, Fitbit, WHOOP, Polar, Samsung Galaxy Watch, Apple Health, Google Fit, and 50+ devices.",
+    "Device Integration | RUVO — Connect via Health Hubs",
+    "RUVO integrates with Apple Watch and Health Connect. Sync data from Garmin, Fitbit, WHOOP, Polar, and 50+ devices via your phone's health ecosystem.",
     "/device-integration",
-    {"@context":"https://schema.org","@type":"WebPage","url":"https://ruvo.app/device-integration","name":"Device Integration | RUVO — Connect 50+ Wearables","isPartOf":{"@id":"https://ruvo.app/#website"},"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://ruvo.app/"},{"@type":"ListItem","position":2,"name":"Device Integration","item":"https://ruvo.app/device-integration"}]}}
+    {"@context":"https://schema.org","@type":"WebPage","url":"https://ruvo.app/device-integration","name":"Device Integration | RUVO — Connect via Health Hubs","isPartOf":{"@id":"https://ruvo.app/#website"},"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://ruvo.app/"},{"@type":"ListItem","position":2,"name":"Device Integration","item":"https://ruvo.app/device-integration"}]}}
   );
 
   const fadeInUp = {
@@ -57,22 +57,22 @@ export default function DeviceIntegration() {
     },
     { 
       name: "Garmin", 
-      desc: "Auto-sync workouts instantly via Garmin Connect. Send structured RUVO training plans directly to your watch.",
+      desc: "Sync your Garmin Connect activities flawlessly via Apple Health or Google Health Connect. Your data flows into RUVO automatically after every run.",
       icon: "M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
     },
     { 
       name: "Coros", 
-      desc: "Seamless integration with Coros EvoLab to combine your training load, fatigue, and recovery metrics.",
+      desc: "Seamless integration with Coros EvoLab via health hubs to combine your training load, fatigue, and recovery metrics.",
       icon: "M13 10V3L4 14h7v7l9-11h-7z"
     },
     { 
       name: "Suunto", 
-      desc: "Export RUVO's custom routes to your Suunto watch for precise turn-by-turn wilderness navigation.",
+      desc: "Track your Suunto workouts and sync them to RUVO effortlessly using the built-in health ecosystem on your smartphone.",
       icon: "M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"
     },
     { 
       name: "Polar", 
-      desc: "High-fidelity biometric sync. Pull in precise ECG and optical heart rate data from Polar sensors.",
+      desc: "High-fidelity sync via health hubs. Pull in precise heart rate and training load data from your Polar sensors and watches.",
       icon: "M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
     },
     { 
@@ -108,7 +108,7 @@ export default function DeviceIntegration() {
             Bring Your Own <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#dfff00] to-lime-500">Device.</span>
           </h1>
           <p className="text-gray-400 text-lg md:text-xl leading-relaxed mx-auto">
-            RUVO is built to seamlessly aggregate data from your favorite hardware. Connect your smartwatches, heart rate monitors, and power meters to unleash the full potential of our AI coaching engine.
+            RUVO is built to aggregate data from your favorite hardware via Apple Health and Health Connect. Connect your smartwatches and heart rate monitors to unleash the potential of our AI coaching engine.
           </p>
         </motion.div>
 
@@ -118,8 +118,8 @@ export default function DeviceIntegration() {
           <div className="hidden md:block absolute top-1/2 left-10 right-10 h-0.5 bg-gradient-to-r from-[#dfff00]/0 via-[#dfff00]/20 to-[#dfff00]/0 -translate-y-1/2 -z-10"></div>
           
           {[
-            { step: "01", title: "Authorize", desc: "Link your accounts securely via OAuth in the RUVO Settings tab." },
-            { step: "02", title: "Train", desc: "Run naturally. We automatically sync your data in the background." },
+            { step: "01", title: "Authorize", desc: "Enable Apple Health or Health Connect permissions in the RUVO app settings." },
+            { step: "02", title: "Train", desc: "Run naturally. Your data syncs automatically to RUVO once your activity is saved." },
             { step: "03", title: "Analyze", desc: "Our AI processes the biometrics to adjust your recovery and pacing." }
           ].map((item, idx) => (
             <motion.div key={idx} variants={fadeInUp} className="h-full">
@@ -138,7 +138,7 @@ export default function DeviceIntegration() {
         <div className="mb-24 md:mb-32">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="text-center mb-12 md:mb-16">
             <h2 className="text-2xl md:text-5xl font-black uppercase tracking-tight text-white mb-4">Supported <span className="text-gray-500">Hardware.</span></h2>
-            <p className="text-gray-400 text-lg max-w-2xl mx-auto">We integrate with over 50 of the world's leading endurance sports wearables and sensors.</p>
+            <p className="text-gray-400 text-lg max-w-2xl mx-auto">We integrate with the world's leading endurance sports ecosystems to ensure your data is always with you.</p>
           </motion.div>
 
           <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -168,7 +168,7 @@ export default function DeviceIntegration() {
               Deep <span className="text-[#dfff00]">Telemetry.</span>
             </h2>
             <p className="text-gray-400 text-base md:text-lg leading-relaxed mb-8 relative z-10">
-              We don't just track your route and pace. RUVO pulls deep biometric data from your connected devices to feed our advanced coaching algorithms, ensuring every insight is tailored to your exact physiological state.
+              We aggregate biometric data from your connected health hubs to feed our AI coaching algorithms, ensuring every insight is tailored to your physiological state.
             </p>
             <Button as={RouterLink} to="/features" radius="full" size="lg" className="bg-white/10 text-white font-bold w-fit border border-white/20 hover:bg-white/20 px-8">
               Explore AI Coaching
@@ -201,10 +201,10 @@ export default function DeviceIntegration() {
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="mb-24 md:mb-32 relative max-w-5xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-2xl md:text-4xl font-black uppercase tracking-tight text-white mb-4">
-              Zero-Latency <span className="text-[#dfff00]">Sync.</span>
+              Seamless <span className="text-[#dfff00]">Sync.</span>
             </h2>
             <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-              Watch your data flow in real-time. No manual uploads, no refreshing required. Your metrics appear on the dashboard the second you hit save.
+              Your data flows into RUVO automatically. No manual uploads required. Your metrics appear on the dashboard as soon as they are synced with your phone.
             </p>
           </div>
           
@@ -253,12 +253,6 @@ export default function DeviceIntegration() {
                 ))}
               </div>
 
-              {/* The Pipeline Track (Mobile Fallback) */}
-              <div className="flex md:hidden h-20 w-px relative items-center justify-center my-2">
-                 <div className="absolute h-full w-[1px] bg-gradient-to-b from-transparent via-white/20 to-transparent"></div>
-                 <motion.div animate={{ top: ["0%", "100%"], opacity: [0, 1, 0] }} transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }} className="w-2.5 h-2.5 rounded-full bg-[#dfff00] shadow-[0_0_12px_#dfff00] absolute"></motion.div>
-              </div>
-
               {/* Node 2: RUVO Engine */}
               <div className="flex flex-col items-center relative group w-32 shrink-0">
                 <div className="absolute inset-0 bg-[#dfff00]/10 rounded-[2rem] blur-2xl group-hover:bg-[#dfff00]/20 transition-colors duration-500"></div>
@@ -293,7 +287,7 @@ export default function DeviceIntegration() {
             Ready to <span className="text-gray-500">Connect?</span>
           </h2>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto mb-10">
-            Download the app, navigate to settings, and link your devices in seconds. Experience training analytics like never before.
+            Download the app, navigate to settings, and link your health hubs in seconds. Experience training analytics like never before.
           </p>
           <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
             <Button radius="full" size="lg" className="bg-[#dfff00] text-black font-bold px-10 py-7 text-base hover:scale-105 transition-transform shadow-[0_0_20px_rgba(223,255,0,0.15)] w-full sm:w-auto">

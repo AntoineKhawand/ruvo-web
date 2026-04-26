@@ -45,13 +45,13 @@ export default function Heatmap() {
       <div className={`max-w-7xl mx-auto relative z-10 w-full flex-grow flex flex-col transition-opacity duration-500 ${exploreMode ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
         <motion.div initial="hidden" animate="visible" variants={fadeInUp} className="text-center pt-8 mb-auto">
           <Chip radius="full" size="sm" className="bg-[#dfff00]/10 text-[#dfff00] font-bold uppercase tracking-[0.2em] mb-6 border border-[#dfff00]/20 px-4 py-4 backdrop-blur-md">
-            Global Activity
+            Coming Soon
           </Chip>
           <h1 className="text-5xl md:text-7xl font-black uppercase tracking-tighter mb-4 text-white leading-none drop-shadow-lg">
             RUVO <span className="text-[#dfff00]">Heatmap.</span>
           </h1>
           <p className="text-gray-300 text-lg md:text-xl leading-relaxed mx-auto max-w-2xl drop-shadow-md">
-            Explore millions of kilometers tracked by athletes worldwide. Discover the most popular running routes in your city.
+            We are building the world's most private and precise activity map. Explore millions of kilometers while maintaining total control over your data.
           </p>
         </motion.div>
 

@@ -104,8 +104,8 @@ const DeviceMarquee = ({ items, direction = 1, speed = 40 }) => {
 const faqs = [
   { question: "Is RUVO free to download?", answer: "Yes! RUVO is completely free to download and use with core features including GPS tracking, basic analytics, and community access. For advanced features like AI coaching, detailed performance analytics, and custom training plans, you can upgrade to RUVO Pro." },
   { question: "Can I track my runs using just my phone?", answer: "Absolutely. You can record activities directly in the RUVO app using your phone's GPS. When you are ready, just tap the record button, choose your activity type, and start running. For enhanced accuracy, you can also pair a smartwatch or external GPS device." },
-  { question: "Which devices does RUVO support?", answer: "RUVO integrates with over 50 devices and wearables including Apple Watch, Garmin, Fitbit, Samsung Galaxy Watch, Polar, Suunto, Coros, WHOOP, and more. We also sync with Apple Health, Google Fit, and Samsung Health for a complete picture of your fitness." },
-  { question: "How accurate is the GPS tracking?", answer: "RUVO uses multi-constellation GPS (GPS, GLONASS, Galileo) combined with smart filtering algorithms to deliver 99.8% accuracy. When paired with a compatible smartwatch, accuracy improves even further with wrist-based positioning data." },
+  { question: "Which devices does RUVO support?", answer: "RUVO integrates seamlessly with Apple Watch and Health Connect on Android. This means you can sync data from any wearable that supports Apple Health or Google Health, including Garmin, Fitbit, Samsung Galaxy Watch, Polar, Suunto, Coros, and WHOOP." },
+  { question: "How accurate is the GPS tracking?", answer: "RUVO utilizes high-precision GPS tracking (GPS, GLONASS, Galileo) combined with signal filtering to deliver reliable pacing and distance data. When paired with a compatible smartwatch, accuracy is further enhanced by leveraging wrist-based positioning sensors." },
   { question: "Can I follow custom training plans?", answer: "Yes. RUVO offers AI-powered training plans that adapt to your goals, fitness level, and schedule. Choose from pre-built plans for 5K, 10K, Half Marathon, Marathon, and Ultra distances, or build a fully custom plan with our Plan Builder tool." },
   { question: "Who can see my activities and data?", answer: "You control your privacy on RUVO. You can share runs with the community, keep them visible only to followers, or set your entire profile to private. You can also hide specific details like pace, location start/end points, and heart rate data from individual activities." },
   { question: "What makes RUVO different from Strava or Nike Run Club?", answer: "RUVO combines the best of both worlds: the data-driven analytics and social features of Strava with the editorial, motivational design of Nike. Plus, we add AI-powered coaching, customizable training plans, and health integration that adapts to your unique physiology and goals." },
@@ -257,7 +257,7 @@ export default function App() {
 
   const featuresList = [
     {
-      title: "Precision Tracking", desc: "Real-time GPS with sub-meter accuracy. Live pace, elevation, and cadence on every run.", stat: "99.8%", statLabel: "GPS ACCURACY",
+      title: "Precision Tracking", desc: "High-precision GPS with real-time signal filtering. Live pace, elevation, and cadence on every run.", stat: "High", statLabel: "GPS PRECISION",
       iconPath: <><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></>
     },
     {
@@ -420,7 +420,7 @@ export default function App() {
                 { text: "Understand my effort levels much better.", img: "https://i.pravatar.cc/150?img=68" },
                 { text: "Leaderboards keep everyone motivated.", img: "https://i.pravatar.cc/150?img=69" },
                 { text: "Cashing out XP for real gear feels incredible.", img: "https://i.pravatar.cc/150?img=70" },
-                { text: "Flawless Garmin integration. Unmatched.", img: "https://i.pravatar.cc/150?img=18" },
+                { text: "Flawless sync with my Garmin watch.", img: "https://i.pravatar.cc/150?img=18" },
                 { text: "The only running app I will ever use.", img: "https://i.pravatar.cc/150?img=32" },
                 { text: "Smart gear tracker saved me from injury.", img: "https://i.pravatar.cc/150?img=47" }
               ]}
@@ -451,7 +451,7 @@ export default function App() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
               {featuresList.map((feature, idx) => {
                 let statContent = feature.stat;
-                if (feature.stat === "99.8%") statContent = <AnimatedNumber value={99.8} decimals={1} suffix="%" />;
+                if (feature.stat === "High") statContent = "High";
                 else if (feature.stat === "50+") statContent = <AnimatedNumber value={50} suffix="+" />;
                 else if (feature.stat === "2M+") statContent = <AnimatedNumber value={2} suffix="M+" />;
                 else if (feature.stat === "100+") statContent = <AnimatedNumber value={100} suffix="+" />;

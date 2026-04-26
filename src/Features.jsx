@@ -42,7 +42,7 @@ function FeatureFaqItem({ faq }) {
 export default function Features() {
   usePageMeta(
     'Features | RUVO — AI Coaching, GPS Tracking & Gamified Rewards',
-    'Explore every RUVO feature: AI-powered training plans, 99.8% accurate GPS tracking, smartwatch integration with 50+ devices, XP reward system, and advanced analytics.',
+    'Explore every RUVO feature: AI-powered training plans, high-precision GPS tracking, smartwatch integration with Apple Health & Health Connect, XP reward system, and advanced analytics.',
     '/features',
     { "@context": "https://schema.org", "@type": "WebPage", "url": "https://ruvo.app/features", "name": "Features | RUVO", "isPartOf": { "@id": "https://ruvo.app/#website" }, "breadcrumb": { "@type": "BreadcrumbList", "itemListElement": [{ "@type": "ListItem", "position": 1, "name": "Home", "item": "https://ruvo.app/" }, { "@type": "ListItem", "position": 2, "name": "Features", "item": "https://ruvo.app/features" }] } }
   );
@@ -81,13 +81,13 @@ export default function Features() {
 
   const integrations = [
     { name: "Apple Watch", delay: 0 },
-    { name: "Garmin", delay: 0.2 },
-    { name: "Coros", delay: 0.4 },
-    { name: "Suunto", delay: 0.1 },
-    { name: "Oura Ring", delay: 0.5 },
+    { name: "Health Connect", delay: 0.2 },
+    { name: "Apple Health", delay: 0.4 },
     { name: "Whoop", delay: 0.6 },
-    { name: "Polar", delay: 0.25 },
-    { name: "Fitbit", delay: 0.45 },
+    { name: "Oura Ring", delay: 0.5 },
+    { name: "Garmin Hub", delay: 0.1 },
+    { name: "Polar Hub", delay: 0.25 },
+    { name: "Fitbit Hub", delay: 0.45 },
   ];
 
   const faqs = [
